@@ -21,8 +21,11 @@ const appStore = useAppStore();
 
 const activeSettingsTab = ref<'general' | 'security' | 'about'>('general');
 
-function switchTab(tab: 'general' | 'security' | 'about') {
+function switchTab(tab: 'general' | 'security' | 'about', event?: Event) {
   activeSettingsTab.value = tab;
+  if (event?.currentTarget && (event.currentTarget as HTMLElement).scrollIntoView) {
+    (event.currentTarget as HTMLElement).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
 }
 
 // General tab state
@@ -142,35 +145,35 @@ const languages: { code: LanguageCode; label: string }[] = [
       </div>
 
       <!-- Settings Tabs Segmented Control -->
-      <div class="grid grid-cols-3 gap-1.5 p-1.5 mx-5 mt-4 mb-2 bg-zinc-100 rounded-2xl shrink-0">
+      <div class="flex items-center gap-2 p-1.5 mx-5 mt-4 mb-2 bg-zinc-100 rounded-2xl shrink-0 overflow-x-auto whitespace-nowrap scroll-smooth">
         <button
           type="button"
-          class="py-2.5 px-2 rounded-xl flex items-center justify-center gap-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95"
+          class="flex-1 min-w-max py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap"
           :class="activeSettingsTab === 'general' ? 'bg-white shadow-soft text-mensor-red' : 'text-zinc-500 hover:text-zinc-900'"
-          @click="switchTab('general')"
+          @click="switchTab('general', $event)"
         >
-          <Sliders class="w-3.5 h-3.5" />
-          <span class="truncate">{{ appStore.t.settings.general }}</span>
+          <Sliders class="w-3.5 h-3.5 shrink-0" />
+          <span>{{ appStore.t.settings.general }}</span>
         </button>
 
         <button
           type="button"
-          class="py-2.5 px-2 rounded-xl flex items-center justify-center gap-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95"
+          class="flex-1 min-w-max py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap"
           :class="activeSettingsTab === 'security' ? 'bg-white shadow-soft text-mensor-red' : 'text-zinc-500 hover:text-zinc-900'"
-          @click="switchTab('security')"
+          @click="switchTab('security', $event)"
         >
-          <Shield class="w-3.5 h-3.5" />
-          <span class="truncate">{{ appStore.t.settings.security }}</span>
+          <Shield class="w-3.5 h-3.5 shrink-0" />
+          <span>{{ appStore.t.settings.security }}</span>
         </button>
 
         <button
           type="button"
-          class="py-2.5 px-2 rounded-xl flex items-center justify-center gap-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95"
+          class="flex-1 min-w-max py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs font-bold transition-all cursor-pointer active:scale-95 shrink-0 whitespace-nowrap"
           :class="activeSettingsTab === 'about' ? 'bg-white shadow-soft text-mensor-red' : 'text-zinc-500 hover:text-zinc-900'"
-          @click="switchTab('about')"
+          @click="switchTab('about', $event)"
         >
-          <Info class="w-3.5 h-3.5" />
-          <span class="truncate">{{ appStore.t.settings.about }}</span>
+          <Info class="w-3.5 h-3.5 shrink-0" />
+          <span>{{ appStore.t.settings.about }}</span>
         </button>
       </div>
 
