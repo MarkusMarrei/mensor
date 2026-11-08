@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mensor</string>
+    <string name="title_activity_main">Mensor</string>
+    <string name="package_name">com.mensor.projectnotes</string>
+    <string name="custom_url_scheme">com.mensor.projectnotes</string>
+</resources>
