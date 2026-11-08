@@ -92,7 +92,7 @@ async function handleCreate() {
       : null;
 
     await notesStore.addNote({
-      title: noteTitle.value.trim() || 'Без названия',
+      title: noteTitle.value.trim() || appStore.t.notes.untitledNote,
       content: noteContent.value.trim(),
       images: [],
       projectId: cleanProjectId,
@@ -156,7 +156,7 @@ async function handleCreate() {
     <div class="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-md max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-zinc-200">
       <!-- Header -->
       <div class="px-5 py-4 border-b border-zinc-100 flex items-center justify-between">
-        <h3 class="text-base font-bold text-zinc-900">Создать</h3>
+        <h3 class="text-base font-bold text-zinc-900">{{ appStore.t.newItem.title }}</h3>
         <button
           class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-500 hover:text-black transition"
           @click="appStore.showNewItemModal = false"
@@ -219,19 +219,19 @@ async function handleCreate() {
               class="absolute right-3 bottom-3 w-7 h-7 rounded-full flex items-center justify-center transition"
               :class="isRecordingNote ? 'bg-mensor-red text-white animate-pulse' : 'bg-zinc-100 text-zinc-500 hover:bg-zinc-200'"
               @click="handleVoiceInputNote"
-              title="Голосовой ввод"
+              :title="appStore.t.notes.voiceInput"
             >
               <Mic class="w-3.5 h-3.5" />
             </button>
           </div>
 
           <div v-if="projectsStore.projects.length > 0">
-            <label class="block text-[11px] font-medium text-zinc-500 mb-1">Привязать к проекту (опционально):</label>
+            <label class="block text-[11px] font-medium text-zinc-500 mb-1">{{ appStore.t.newItem.noteProjectLabel }}</label>
             <select
               v-model="noteProjectId"
               class="w-full text-xs px-3 py-2 rounded-xl border border-zinc-200 focus:outline-none bg-white"
             >
-              <option :value="null">Без проекта (отдельная записка)</option>
+              <option :value="null">{{ appStore.t.newItem.noProjectStandaloneNote }}</option>
               <option v-for="p in projectsStore.projects" :key="p.id" :value="p.id">
                 📁 {{ p.title }}
               </option>
@@ -244,20 +244,20 @@ async function handleCreate() {
           <input
             type="text"
             v-model="taskTitle"
-            placeholder="Что нужно сделать?"
+            :placeholder="appStore.t.newItem.taskTitlePlaceholder"
             class="w-full text-sm font-semibold px-3.5 py-2.5 rounded-2xl border border-zinc-200 focus:outline-none focus:border-mensor-red"
           />
 
           <textarea
             v-model="taskDescription"
             rows="2"
-            placeholder="Описание задачи (опционально)..."
+            :placeholder="appStore.t.newItem.taskDescPlaceholder"
             class="w-full text-xs px-3.5 py-2 rounded-xl border border-zinc-200 focus:outline-none focus:border-mensor-red"
           ></textarea>
 
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block text-[11px] font-medium text-zinc-500 mb-1">Дата</label>
+              <label class="block text-[11px] font-medium text-zinc-500 mb-1">{{ appStore.t.newItem.dateLabel }}</label>
               <input
                 type="date"
                 v-model="taskDate"
@@ -265,7 +265,7 @@ async function handleCreate() {
               />
             </div>
             <div>
-              <label class="block text-[11px] font-medium text-zinc-500 mb-1">Время</label>
+              <label class="block text-[11px] font-medium text-zinc-500 mb-1">{{ appStore.t.newItem.timeLabel }}</label>
               <input
                 type="time"
                 v-model="taskTime"
@@ -275,7 +275,7 @@ async function handleCreate() {
           </div>
 
           <div>
-            <label class="block text-[11px] font-medium text-zinc-500 mb-1">Приоритет</label>
+            <label class="block text-[11px] font-medium text-zinc-500 mb-1">{{ appStore.t.newItem.priorityLabel }}</label>
             <div class="grid grid-cols-3 gap-2 text-xs">
               <button
                 type="button"
@@ -305,12 +305,12 @@ async function handleCreate() {
           </div>
 
           <div v-if="projectsStore.projects.length > 0">
-            <label class="block text-[11px] font-medium text-zinc-500 mb-1">Привязать к проекту (опционально):</label>
+            <label class="block text-[11px] font-medium text-zinc-500 mb-1">{{ appStore.t.newItem.taskProjectLabel }}</label>
             <select
               v-model="taskProjectId"
               class="w-full text-xs px-3 py-2 rounded-xl border border-zinc-200 focus:outline-none bg-white"
             >
-              <option :value="null">Без проекта</option>
+              <option :value="null">{{ appStore.t.newItem.noProject }}</option>
               <option v-for="p in projectsStore.projects" :key="p.id" :value="p.id">
                 📁 {{ p.title }}
               </option>
@@ -323,18 +323,18 @@ async function handleCreate() {
           <input
             type="text"
             v-model="projectTitle"
-            placeholder="Название проекта..."
+            :placeholder="appStore.t.newItem.projectTitlePlaceholder"
             class="w-full text-sm font-semibold px-3.5 py-2.5 rounded-2xl border border-zinc-200 focus:outline-none focus:border-mensor-red"
           />
           <textarea
             v-model="projectDesc"
             rows="3"
-            placeholder="Краткое описание проекта и целей..."
+            :placeholder="appStore.t.newItem.projectDescPlaceholder"
             class="w-full text-sm px-3.5 py-2.5 rounded-2xl border border-zinc-200 focus:outline-none focus:border-mensor-red"
           ></textarea>
 
           <div>
-            <label class="block text-[11px] font-medium text-zinc-500 mb-1.5">Цветовая метка проекта</label>
+            <label class="block text-[11px] font-medium text-zinc-500 mb-1.5">{{ appStore.t.newItem.projectColorLabel }}</label>
             <div class="flex gap-2">
               <button
                 v-for="c in ['#E11D48', '#2563EB', '#10B981', '#F59E0B', '#8B5CF6', '#18181B']"
@@ -356,7 +356,7 @@ async function handleCreate() {
           class="w-full py-3 bg-mensor-dark text-white rounded-2xl font-semibold text-sm shadow-float hover:bg-black transition active:scale-[0.98]"
           @click="handleCreate"
         >
-          Создать
+          {{ appStore.t.newItem.create }}
         </button>
       </div>
     </div>

@@ -30,7 +30,7 @@ function removeAvatar() {
 
 async function handleSave() {
   await appStore.updateProfile({
-    firstName: firstName.value.trim() || 'Пользователь',
+    firstName: firstName.value.trim() || (appStore.settings.language === 'ru' ? 'Пользователь' : 'User'),
     lastName: lastName.value.trim(),
     bio: bio.value.trim(),
     avatar: avatar.value,

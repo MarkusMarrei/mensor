@@ -41,9 +41,9 @@ export async function authenticateWithBiometrics(options?: {
   if (Capacitor.isNativePlatform()) {
     try {
       const result = await NativeBiometric.authenticate({
-        title: options?.title || 'Вход в Mensor',
-        subtitle: options?.subtitle || 'Приложите палец к сканеру',
-        cancelText: options?.cancelText || 'Отмена',
+        title: options?.title || 'Mensor',
+        subtitle: options?.subtitle || 'Touch the fingerprint sensor',
+        cancelText: options?.cancelText || 'Cancel',
       });
       return !!result.success;
     } catch (e) {

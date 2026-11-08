@@ -23,6 +23,7 @@ export const useAIStore = defineStore('ai', () => {
     const projectsStore = useProjectsStore();
     const notesStore = useNotesStore();
 
+    const isRu = appStore.settings.language === 'ru';
     const now = new Date();
     const dateStr = now.toLocaleDateString(appStore.settings.language, {
       weekday: 'long',
@@ -36,8 +37,10 @@ export const useAIStore = defineStore('ai', () => {
     const projectsSummary = projectsStore.projects.map(p => {
       const pNotes = notesStore.getProjectNotes(p.id);
       const pTasks = tasksStore.getProjectTasks(p.id);
-      return `- Проект "${p.title}" (Прогресс: ${p.progress}%, Записей: ${pNotes.length}, Задач: ${pTasks.length})`;
-    }).join('\n') || 'Нет активных проектов.';
+      return isRu
+        ? `- Проект "${p.title}" (Прогресс: ${p.progress}%, Записей: ${pNotes.length}, Задач: ${pTasks.length})`
+        : `- Project "${p.title}" (Progress: ${p.progress}%, Notes: ${pNotes.length}, Tasks: ${pTasks.length})`;
+    }).join('\n') || (isRu ? 'Нет активных проектов.' : 'No active projects.');
 
     // Today's tasks summary
     const today = getTodayDateString();
@@ -45,17 +48,23 @@ export const useAIStore = defineStore('ai', () => {
     const completedTasks = todayTasksList.filter(t => t.status === 'completed');
     const pendingTasks = todayTasksList.filter(t => t.status !== 'completed');
 
-    const tasksSummary = `
+    const tasksSummary = isRu ? `
 Задачи на сегодня (${dateStr}, ${timeStr}):
 - Выполнено: ${completedTasks.length}
 - В ожидании: ${pendingTasks.length}
 ${pendingTasks.map(t => `  • [${t.timeSlot || 'Без времени'}] ${t.title} (Приоритет: ${t.priority})`).join('\n') || '  • Все задачи выполнены!'}
+` : `
+Today's tasks (${dateStr}, ${timeStr}):
+- Completed: ${completedTasks.length}
+- Pending: ${pendingTasks.length}
+${pendingTasks.map(t => `  • [${t.timeSlot || 'All day'}] ${t.title} (Priority: ${t.priority})`).join('\n') || '  • All tasks completed!'}
 `;
 
     // High-level Standalone Notes summary
-    const recentNotes = notesStore.standaloneNotes.slice(0, 5).map(n => `• "${n.title}": ${n.content.slice(0, 80)}...`).join('\n') || 'Нет записей.';
+    const recentNotes = notesStore.standaloneNotes.slice(0, 5).map(n => `• "${n.title}": ${n.content.slice(0, 80)}...`).join('\n') || (isRu ? 'Нет записей.' : 'No notes.');
 
-    return `Ты — Mensor AI, умный персональный консультант и ассистент по проектам, заметкам и задачам.
+    if (isRu) {
+      return `Ты — Mensor AI, умный персональный консультант и ассистент по проектам, заметкам и задачам.
 ТЕКУЩЕЕ ВРЕМЯ: ${dateStr}, ${timeStr}.
 
 СВОДКА ПРОЕКТОВ ПОЛЬЗОВАТЕЛЯ:
@@ -71,6 +80,25 @@ ${recentNotes}
 1. Отвечай кратко, доброжелательно, структурированно и по делу.
 2. Ты видишь реальные задачи, проекты и заметки пользователя. Помогай планировать время, расставлять приоритеты и находить нужную информацию.
 3. Всегда учитывай текущее время и статус выполнения задач.
+`;
+    }
+
+    return `You are Mensor AI, an intelligent personal assistant for projects, notes, and tasks.
+CURRENT TIME: ${dateStr}, ${timeStr}.
+
+USER PROJECTS SUMMARY:
+${projectsSummary}
+
+SCHEDULE SUMMARY:
+${tasksSummary}
+
+RECENT NOTES:
+${recentNotes}
+
+INSTRUCTIONS:
+1. Reply concisely, constructively, and to the point in the user's language.
+2. You have direct awareness of the user's tasks, projects, and notes. Help organize time, prioritize goals, and locate information.
+3. Always consider the current time and task completion status.
 `;
   }
 
@@ -147,39 +175,59 @@ ${recentNotes}
 
   function generateLocalConsultantResponse(query: string): string {
     const q = query.toLowerCase();
+    const appStore = useAppStore();
     const tasksStore = useTasksStore();
     const projectsStore = useProjectsStore();
     const notesStore = useNotesStore();
+    const isRu = appStore.settings.language === 'ru';
 
     const today = getTodayDateString();
     const todayTasks = tasksStore.tasks.filter(t => t.date === today);
     const pendingTasks = todayTasks.filter(t => t.status !== 'completed');
 
-    if (q.includes('задач') || q.includes('план') || q.includes('сегодня') || q.includes('task') || q.includes('schedule')) {
+    if (q.includes('задач') || q.includes('план') || q.includes('сегодня') || q.includes('task') || q.includes('schedule') || q.includes('today')) {
       if (todayTasks.length === 0) {
-        return `На сегодня задач в расписании пока нет. Отличное время, чтобы запланировать новые цели или продвинуться по текущим проектам!`;
+        return isRu
+          ? `На сегодня задач в расписании пока нет. Отличное время, чтобы запланировать новые цели или продвинуться по текущим проектам!`
+          : `No tasks scheduled for today yet. A great moment to define new goals or make progress on current projects!`;
       }
-      return `На сегодня запланировано задач: **${todayTasks.length}** (осталось выполнить: **${pendingTasks.length}**).\n\n` +
-        pendingTasks.map((t, idx) => `${idx + 1}. **${t.title}** ${t.timeSlot ? `в ${t.timeSlot}` : ''} [${t.priority}]`).join('\n') +
-        `\n\nРекомендую начать с задач с высоким приоритетом!`;
+      return isRu
+        ? `На сегодня запланировано задач: **${todayTasks.length}** (осталось выполнить: **${pendingTasks.length}**).\n\n` +
+          pendingTasks.map((t, idx) => `${idx + 1}. **${t.title}** ${t.timeSlot ? `в ${t.timeSlot}` : ''} [${t.priority}]`).join('\n') +
+          `\n\nРекомендую начать с задач с высоким приоритетом!`
+        : `Tasks scheduled for today: **${todayTasks.length}** (**${pendingTasks.length}** pending).\n\n` +
+          pendingTasks.map((t, idx) => `${idx + 1}. **${t.title}** ${t.timeSlot ? `at ${t.timeSlot}` : ''} [${t.priority}]`).join('\n') +
+          `\n\nPrioritizing high-importance items is recommended!`;
     }
 
-    if (q.includes('проект') || q.includes('project') || q.includes('саммари')) {
+    if (q.includes('проект') || q.includes('project') || q.includes('саммари') || q.includes('summary')) {
       if (projectsStore.projects.length === 0) {
-        return `У вас пока нет активных проектов. Вы можете создать проект во вкладке «Проекты», чтобы вести изолированные заметки и задачи.`;
+        return isRu
+          ? `У вас пока нет активных проектов. Вы можете создать проект во вкладке «Проекты», чтобы вести изолированные заметки и задачи.`
+          : `You currently have no active projects. Create one in the Projects tab to organize your notes and tasks.`;
       }
-      return `У вас сейчас **${projectsStore.projects.length}** проекта(ов):\n\n` +
-        projectsStore.projects.map(p => {
-          const notesCount = notesStore.getProjectNotes(p.id).length;
-          return `📁 **${p.title}** — прогресс: **${p.progress}%**, заметок внутри: **${notesCount}**`;
-        }).join('\n');
+      return isRu
+        ? `У вас сейчас **${projectsStore.projects.length}** проекта(ов):\n\n` +
+          projectsStore.projects.map(p => {
+            const notesCount = notesStore.getProjectNotes(p.id).length;
+            return `📁 **${p.title}** — прогресс: **${p.progress}%**, заметок внутри: **${notesCount}**`;
+          }).join('\n')
+        : `You currently have **${projectsStore.projects.length}** active project(s):\n\n` +
+          projectsStore.projects.map(p => {
+            const notesCount = notesStore.getProjectNotes(p.id).length;
+            return `📁 **${p.title}** — progress: **${p.progress}%**, notes: **${notesCount}**`;
+          }).join('\n');
     }
 
     if (q.includes('запис') || q.includes('заметк') || q.includes('мысл') || q.includes('note')) {
-      return `В общем списке у вас **${notesStore.standaloneNotes.length}** записок. Напомню, что проектные заметки изолированы и доступны внутри каждого проекта. Если нужно найти что-то конкретное, просто назовите тему или ключевое слово!`;
+      return isRu
+        ? `В общем списке у вас **${notesStore.standaloneNotes.length}** записок. Напомню, что проектные заметки изолированы и доступны внутри каждого проекта. Если нужно найти что-то конкретное, просто назовите тему или ключевое слово!`
+        : `You have **${notesStore.standaloneNotes.length}** general note(s). Remember that project notes are organized within their respective projects. Let me know if you need to locate specific details!`;
     }
 
-    return `Я проанализировал ваши текущие задачи и проекты. У вас активно **${projectsStore.projects.length}** проекта(ов) и **${pendingTasks.length}** незакрытых задач на сегодня. Чем я могу помочь детально: составить план, сделать выжимку по заметкам или приоритизировать дела?`;
+    return isRu
+      ? `Я проанализировал ваши текущие задачи и проекты. У вас активно **${projectsStore.projects.length}** проекта(ов) и **${pendingTasks.length}** незакрытых задач на сегодня. Чем я могу помочь детально: составить план, сделать выжимку по заметкам или приоритизировать дела?`
+      : `I reviewed your current tasks and projects. You have **${projectsStore.projects.length}** active project(s) and **${pendingTasks.length}** pending task(s) for today. How can I assist you: organize a schedule, summarize notes, or prioritize goals?`;
   }
 
   async function clearMemory(): Promise<void> {

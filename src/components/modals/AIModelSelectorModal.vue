@@ -136,7 +136,7 @@ function selectProvider(provider: AIProvider, model: string) {
       <div class="p-4 bg-zinc-50 border-t border-zinc-100 text-center">
         <span class="text-[11px] text-zinc-400 flex items-center justify-center gap-1">
           <ShieldCheck class="w-3.5 h-3.5 text-emerald-600" />
-          <span>Квантование KV-кэша INT8 активно • Защита от OOM</span>
+          <span>INT8 KV-Cache Quantization Active • OOM Protection</span>
         </span>
       </div>
     </div>

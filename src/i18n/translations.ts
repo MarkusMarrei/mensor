@@ -38,15 +38,22 @@ export interface TranslationSchema {
     today: string;
     addTask: string;
     noTasksForDay: string;
+    createFirstTask: string;
     high: string;
     medium: string;
     low: string;
+    allDay: string;
+    generalProject: string;
   };
   notes: {
     title: string;
     searchPlaceholder: string;
     newNote: string;
     emptyNotes: string;
+    emptyNotesDesc: string;
+    createFirstNote: string;
+    untitledNote: string;
+    voiceInput: string;
     speakText: string;
     stopSpeech: string;
     attachImage: string;
@@ -54,18 +61,60 @@ export interface TranslationSchema {
     delete: string;
     titlePlaceholder: string;
     contentPlaceholder: string;
+    deleteConfirm: string;
   };
   projects: {
     title: string;
+    subtitle: string;
     newProject: string;
     projectNotes: string;
     projectTasks: string;
     emptyProjects: string;
     emptyProjectNotes: string;
+    emptyProjectTasks: string;
     deleteConfirm: string;
     progress: string;
+    progressLabel: string;
     inProgress: string;
     noDescription: string;
+    notesWord: string;
+    tasksWord: string;
+    createFirstProject: string;
+    allProjects: string;
+    deleteProject: string;
+    editProject: string;
+    editProjectTitle: string;
+    projectTitlePlaceholder: string;
+    projectDescPlaceholder: string;
+    projectColorLabel: string;
+    projectNotesTab: string;
+    projectTasksTab: string;
+    projectNotesSection: string;
+    projectTasksSection: string;
+    addNoteToProject: string;
+    addTaskToProject: string;
+    createFirstNoteInProject: string;
+    createFirstTaskInProject: string;
+    projectNoteLabel: string;
+    saveChanges: string;
+  };
+  newItem: {
+    title: string;
+    create: string;
+    taskProjectLabel: string;
+    noProject: string;
+    noProjectStandaloneNote: string;
+    taskTitlePlaceholder: string;
+    taskDescPlaceholder: string;
+    dateLabel: string;
+    timeLabel: string;
+    priorityLabel: string;
+    noteProjectLabel: string;
+    noteTitlePlaceholder: string;
+    noteContentPlaceholder: string;
+    projectColorLabel: string;
+    projectTitlePlaceholder: string;
+    projectDescPlaceholder: string;
   };
   ai: {
     title: string;
@@ -274,6 +323,10 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "high": "высокий",
       "medium": "средний",
       "low": "низкий"
+    ,
+      "allDay": "Весь день",
+      "generalProject": "Общее",
+      "createFirstTask": "+ Создать задачу на этот день"
     },
     "notes": {
       "title": "Записки",
@@ -287,6 +340,12 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "delete": "Удалить",
       "titlePlaceholder": "Заголовок записи...",
       "contentPlaceholder": "Текст заметки или мысли..."
+    ,
+      "emptyNotesDesc": "Мысли, идеи, планы...",
+      "createFirstNote": "+ Создать первую мысль",
+      "untitledNote": "Без названия",
+      "voiceInput": "Голосовой ввод",
+      "deleteConfirm": "Удалить эту записку?"
     },
     "projects": {
       "title": "Проекты",
@@ -299,6 +358,48 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "progress": "Прогресс",
       "inProgress": "В процессе",
       "noDescription": "Без описания"
+    ,
+      "subtitle": "Изолированные пространства для работы",
+      "notesWord": "записок",
+      "tasksWord": "задач",
+      "createFirstProject": "+ Создать первый проект",
+      "allProjects": "Все проекты",
+      "deleteProject": "Удалить проект",
+      "editProject": "Редактировать проект",
+      "editProjectTitle": "Редактирование проекта",
+      "projectTitlePlaceholder": "Название проекта...",
+      "projectDescPlaceholder": "Краткое описание проекта и целей...",
+      "projectColorLabel": "Цветовая метка проекта",
+      "progressLabel": "Прогресс выполнения:",
+      "projectNotesTab": "Записи проекта",
+      "projectTasksTab": "Задачи проекта",
+      "projectNotesSection": "Записки проекта:",
+      "projectTasksSection": "Задачи проекта:",
+      "addNoteToProject": "Добавить записку в проект",
+      "addTaskToProject": "Добавить задачу в проект",
+      "createFirstNoteInProject": "+ Создать первую записку в проекте",
+      "createFirstTaskInProject": "+ Создать первую задачу в проекте",
+      "emptyProjectTasks": "В этом проекте пока нет привязанных задач",
+      "projectNoteLabel": "Записка проекта",
+      "saveChanges": "Сохранить изменения"
+    },
+    "newItem": {
+      "title": "Создать",
+      "create": "Создать",
+      "taskProjectLabel": "Привязать к проекту (опционально):",
+      "noProject": "Без проекта",
+      "noProjectStandaloneNote": "Без проекта (отдельная записка)",
+      "taskTitlePlaceholder": "Что нужно сделать?",
+      "taskDescPlaceholder": "Описание задачи (опционально)...",
+      "dateLabel": "Дата",
+      "timeLabel": "Время",
+      "priorityLabel": "Приоритет",
+      "noteProjectLabel": "Привязать к проекту (опционально):",
+      "noteTitlePlaceholder": "Заголовок мысли...",
+      "noteContentPlaceholder": "Текст мысли...",
+      "projectColorLabel": "Цветовая метка проекта",
+      "projectTitlePlaceholder": "Название проекта...",
+      "projectDescPlaceholder": "Краткое описание проекта и целей..."
     },
     "ai": {
       "title": "AI-Ассистент",
@@ -492,6 +593,10 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "high": "high",
       "medium": "medium",
       "low": "low"
+    ,
+      "allDay": "All day",
+      "generalProject": "General",
+      "createFirstTask": "+ Create task for this day"
     },
     "notes": {
       "title": "Notes",
@@ -505,6 +610,12 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "delete": "Delete",
       "titlePlaceholder": "Note title...",
       "contentPlaceholder": "Write your thoughts..."
+    ,
+      "emptyNotesDesc": "Thoughts, ideas, plans...",
+      "createFirstNote": "+ Create first note",
+      "untitledNote": "Untitled",
+      "voiceInput": "Voice input",
+      "deleteConfirm": "Delete this note?"
     },
     "projects": {
       "title": "Projects",
@@ -517,6 +628,48 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "progress": "Progress",
       "inProgress": "In progress",
       "noDescription": "No description"
+    ,
+      "subtitle": "Dedicated workspaces for your goals",
+      "notesWord": "notes",
+      "tasksWord": "tasks",
+      "createFirstProject": "+ Create first project",
+      "allProjects": "All Projects",
+      "deleteProject": "Delete Project",
+      "editProject": "Edit Project",
+      "editProjectTitle": "Edit Project Details",
+      "projectTitlePlaceholder": "Project title...",
+      "projectDescPlaceholder": "Brief project description and objectives...",
+      "projectColorLabel": "Project color tag",
+      "progressLabel": "Overall progress:",
+      "projectNotesTab": "Project Notes",
+      "projectTasksTab": "Project Tasks",
+      "projectNotesSection": "Project notes:",
+      "projectTasksSection": "Project tasks:",
+      "addNoteToProject": "Add note to project",
+      "addTaskToProject": "Add task to project",
+      "createFirstNoteInProject": "+ Create first note in project",
+      "createFirstTaskInProject": "+ Create first task in project",
+      "emptyProjectTasks": "No tasks linked to this project yet",
+      "projectNoteLabel": "Project Note",
+      "saveChanges": "Save Changes"
+    },
+    "newItem": {
+      "title": "Create New",
+      "create": "Create",
+      "taskProjectLabel": "Assign to project (optional):",
+      "noProject": "No project",
+      "noProjectStandaloneNote": "No project (standalone note)",
+      "taskTitlePlaceholder": "What needs to be done?",
+      "taskDescPlaceholder": "Task description (optional)...",
+      "dateLabel": "Date",
+      "timeLabel": "Time",
+      "priorityLabel": "Priority",
+      "noteProjectLabel": "Assign to project (optional):",
+      "noteTitlePlaceholder": "Note title...",
+      "noteContentPlaceholder": "Write your thoughts...",
+      "projectColorLabel": "Project color tag",
+      "projectTitlePlaceholder": "Project title...",
+      "projectDescPlaceholder": "Brief project description and objectives..."
     },
     "ai": {
       "title": "AI Assistant",
@@ -710,6 +863,10 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "high": "alta",
       "medium": "media",
       "low": "baja"
+    ,
+      "allDay": "Todo el día",
+      "generalProject": "General",
+      "createFirstTask": "+ Crear tarea para este día"
     },
     "notes": {
       "title": "Notas",
@@ -723,6 +880,12 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "delete": "Eliminar",
       "titlePlaceholder": "Título de la nota...",
       "contentPlaceholder": "Escribe tus pensamientos..."
+    ,
+      "emptyNotesDesc": "Pensamientos, ideas, planes...",
+      "createFirstNote": "+ Crear primera nota",
+      "untitledNote": "Sin título",
+      "voiceInput": "Entrada de voz",
+      "deleteConfirm": "¿Eliminar esta nota?"
     },
     "projects": {
       "title": "Proyectos",
@@ -735,6 +898,48 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "progress": "Progreso",
       "inProgress": "En progreso",
       "noDescription": "Sin descripción"
+    ,
+      "subtitle": "Espacios dedicados para tus objetivos",
+      "notesWord": "notas",
+      "tasksWord": "tareas",
+      "createFirstProject": "+ Crear primer proyecto",
+      "allProjects": "Todos los proyectos",
+      "deleteProject": "Eliminar proyecto",
+      "editProject": "Editar proyecto",
+      "editProjectTitle": "Editar detalles del proyecto",
+      "projectTitlePlaceholder": "Título del proyecto...",
+      "projectDescPlaceholder": "Breve descripción y objetivos del proyecto...",
+      "projectColorLabel": "Etiqueta de color del proyecto",
+      "progressLabel": "Progreso general:",
+      "projectNotesTab": "Notas del proyecto",
+      "projectTasksTab": "Tareas del proyecto",
+      "projectNotesSection": "Notas del proyecto:",
+      "projectTasksSection": "Tareas del proyecto:",
+      "addNoteToProject": "Añadir nota al proyecto",
+      "addTaskToProject": "Añadir tarea al proyecto",
+      "createFirstNoteInProject": "+ Crear primera nota en el proyecto",
+      "createFirstTaskInProject": "+ Crear primera tarea en el proyecto",
+      "emptyProjectTasks": "Aún no hay tareas vinculadas a este proyecto",
+      "projectNoteLabel": "Nota del proyecto",
+      "saveChanges": "Guardar cambios"
+    },
+    "newItem": {
+      "title": "Crear",
+      "create": "Crear",
+      "taskProjectLabel": "Asignar al proyecto (opcional):",
+      "noProject": "Sin proyecto",
+      "noProjectStandaloneNote": "Sin proyecto (nota independiente)",
+      "taskTitlePlaceholder": "¿Qué hay que hacer?",
+      "taskDescPlaceholder": "Descripción de la tarea (opcional)...",
+      "dateLabel": "Fecha",
+      "timeLabel": "Hora",
+      "priorityLabel": "Prioridad",
+      "noteProjectLabel": "Asignar al proyecto (opcional):",
+      "noteTitlePlaceholder": "Título de la nota...",
+      "noteContentPlaceholder": "Escribe tus pensamientos...",
+      "projectColorLabel": "Etiqueta de color del proyecto",
+      "projectTitlePlaceholder": "Título del proyecto...",
+      "projectDescPlaceholder": "Breve descripción y objetivos del proyecto..."
     },
     "ai": {
       "title": "Asistente IA",
@@ -928,6 +1133,10 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "high": "hoch",
       "medium": "mittel",
       "low": "niedrig"
+    ,
+      "allDay": "Ganztägig",
+      "generalProject": "Allgemein",
+      "createFirstTask": "+ Aufgabe für diesen Tag erstellen"
     },
     "notes": {
       "title": "Notizen",
@@ -941,6 +1150,12 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "delete": "Löschen",
       "titlePlaceholder": "Titel der Notiz...",
       "contentPlaceholder": "Gedanken notieren..."
+    ,
+      "emptyNotesDesc": "Gedanken, Ideen, Pläne...",
+      "createFirstNote": "+ Erste Notiz erstellen",
+      "untitledNote": "Ohne Titel",
+      "voiceInput": "Spracheingabe",
+      "deleteConfirm": "Diese Notiz löschen?"
     },
     "projects": {
       "title": "Projekte",
@@ -953,6 +1168,48 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "progress": "Fortschritt",
       "inProgress": "In Arbeit",
       "noDescription": "Keine Beschreibung"
+    ,
+      "subtitle": "Dedizierte Arbeitsbereiche für Ihre Ziele",
+      "notesWord": "Notizen",
+      "tasksWord": "Aufgaben",
+      "createFirstProject": "+ Erstes Projekt erstellen",
+      "allProjects": "Alle Projekte",
+      "deleteProject": "Projekt löschen",
+      "editProject": "Projekt bearbeiten",
+      "editProjectTitle": "Projektdetails bearbeiten",
+      "projectTitlePlaceholder": "Projekttitel...",
+      "projectDescPlaceholder": "Kurze Projektbeschreibung und Ziele...",
+      "projectColorLabel": "Projekt-Farbmarkierung",
+      "progressLabel": "Gesamtfortschritt:",
+      "projectNotesTab": "Projektnotizen",
+      "projectTasksTab": "Projektaufgaben",
+      "projectNotesSection": "Projektnotizen:",
+      "projectTasksSection": "Projektaufgaben:",
+      "addNoteToProject": "Notiz zum Projekt hinzufügen",
+      "addTaskToProject": "Aufgabe zum Projekt hinzufügen",
+      "createFirstNoteInProject": "+ Erste Notiz im Projekt erstellen",
+      "createFirstTaskInProject": "+ Erste Aufgabe im Projekt erstellen",
+      "emptyProjectTasks": "Diesem Projekt sind noch keine Aufgaben zugewiesen",
+      "projectNoteLabel": "Projektnotiz",
+      "saveChanges": "Änderungen speichern"
+    },
+    "newItem": {
+      "title": "Erstellen",
+      "create": "Erstellen",
+      "taskProjectLabel": "Projekt zuweisen (optional):",
+      "noProject": "Kein Projekt",
+      "noProjectStandaloneNote": "Kein Projekt (eigenständige Notiz)",
+      "taskTitlePlaceholder": "Was muss getan werden?",
+      "taskDescPlaceholder": "Aufgabenbeschreibung (optional)...",
+      "dateLabel": "Datum",
+      "timeLabel": "Uhrzeit",
+      "priorityLabel": "Priorität",
+      "noteProjectLabel": "Projekt zuweisen (optional):",
+      "noteTitlePlaceholder": "Notiztitel...",
+      "noteContentPlaceholder": "Schreiben Sie Ihre Gedanken...",
+      "projectColorLabel": "Projekt-Farbmarkierung",
+      "projectTitlePlaceholder": "Projekttitel...",
+      "projectDescPlaceholder": "Kurze Projektbeschreibung und Ziele..."
     },
     "ai": {
       "title": "KI-Assistent",
@@ -1146,6 +1403,10 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "high": "haute",
       "medium": "moyenne",
       "low": "basse"
+    ,
+      "allDay": "Toute la journée",
+      "generalProject": "Général",
+      "createFirstTask": "+ Créer une tâche pour ce jour"
     },
     "notes": {
       "title": "Notes",
@@ -1159,6 +1420,12 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "delete": "Supprimer",
       "titlePlaceholder": "Titre de la note...",
       "contentPlaceholder": "Écrivez vos pensées..."
+    ,
+      "emptyNotesDesc": "Pensées, idées, plans...",
+      "createFirstNote": "+ Créer la première note",
+      "untitledNote": "Sans titre",
+      "voiceInput": "Saisie vocale",
+      "deleteConfirm": "Supprimer cette note ?"
     },
     "projects": {
       "title": "Projets",
@@ -1171,6 +1438,48 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "progress": "Progression",
       "inProgress": "En cours",
       "noDescription": "Sans description"
+    ,
+      "subtitle": "Espaces dédiés pour vos objectifs",
+      "notesWord": "notes",
+      "tasksWord": "tâches",
+      "createFirstProject": "+ Créer le premier projet",
+      "allProjects": "Tous les projets",
+      "deleteProject": "Supprimer le projet",
+      "editProject": "Modifier le projet",
+      "editProjectTitle": "Modifier les détails du projet",
+      "projectTitlePlaceholder": "Titre du projet...",
+      "projectDescPlaceholder": "Brève description et objectifs du projet...",
+      "projectColorLabel": "Étiquette de couleur du projet",
+      "progressLabel": "Progression globale :",
+      "projectNotesTab": "Notes du projet",
+      "projectTasksTab": "Tâches du projet",
+      "projectNotesSection": "Notes du projet :",
+      "projectTasksSection": "Tâches du projet :",
+      "addNoteToProject": "Ajouter une note au projet",
+      "addTaskToProject": "Ajouter une tâche au projet",
+      "createFirstNoteInProject": "+ Créer la première note dans le projet",
+      "createFirstTaskInProject": "+ Créer la première tâche dans le projet",
+      "emptyProjectTasks": "Aucune tâche liée à ce projet pour le moment",
+      "projectNoteLabel": "Note du projet",
+      "saveChanges": "Enregistrer les modifications"
+    },
+    "newItem": {
+      "title": "Créer",
+      "create": "Créer",
+      "taskProjectLabel": "Assigner au projet (optionnel) :",
+      "noProject": "Sans projet",
+      "noProjectStandaloneNote": "Sans projet (note autonome)",
+      "taskTitlePlaceholder": "Que faut-il faire ?",
+      "taskDescPlaceholder": "Description de la tâche (optionnel)...",
+      "dateLabel": "Date",
+      "timeLabel": "Heure",
+      "priorityLabel": "Priorité",
+      "noteProjectLabel": "Assigner au projet (optionnel) :",
+      "noteTitlePlaceholder": "Titre de la note...",
+      "noteContentPlaceholder": "Écrivez vos pensées...",
+      "projectColorLabel": "Étiquette de couleur du projet",
+      "projectTitlePlaceholder": "Titre du projet...",
+      "projectDescPlaceholder": "Brève description et objectifs du projet..."
     },
     "ai": {
       "title": "Assistant IA",
@@ -1364,6 +1673,10 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "high": "alta",
       "medium": "média",
       "low": "baixa"
+    ,
+      "allDay": "O dia todo",
+      "generalProject": "Geral",
+      "createFirstTask": "+ Criar tarefa para este dia"
     },
     "notes": {
       "title": "Notas",
@@ -1377,6 +1690,12 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "delete": "Excluir",
       "titlePlaceholder": "Título da nota...",
       "contentPlaceholder": "Escreva seus pensamentos..."
+    ,
+      "emptyNotesDesc": "Pensamentos, ideias, planos...",
+      "createFirstNote": "+ Criar primeira nota",
+      "untitledNote": "Sem título",
+      "voiceInput": "Entrada de voz",
+      "deleteConfirm": "Excluir esta nota?"
     },
     "projects": {
       "title": "Projetos",
@@ -1389,6 +1708,48 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "progress": "Progresso",
       "inProgress": "Em andamento",
       "noDescription": "Sem descrição"
+    ,
+      "subtitle": "Espaços dedicados para seus objetivos",
+      "notesWord": "notas",
+      "tasksWord": "tarefas",
+      "createFirstProject": "+ Criar primeiro projeto",
+      "allProjects": "Todos os projetos",
+      "deleteProject": "Excluir projeto",
+      "editProject": "Editar projeto",
+      "editProjectTitle": "Editar detalhes do projeto",
+      "projectTitlePlaceholder": "Título do projeto...",
+      "projectDescPlaceholder": "Breve descrição e objetivos do projeto...",
+      "projectColorLabel": "Etiqueta de cor do projeto",
+      "progressLabel": "Progresso geral:",
+      "projectNotesTab": "Notas do projeto",
+      "projectTasksTab": "Tarefas do projeto",
+      "projectNotesSection": "Notas do projeto:",
+      "projectTasksSection": "Tarefas do projeto:",
+      "addNoteToProject": "Adicionar nota ao projeto",
+      "addTaskToProject": "Adicionar tarefa ao projeto",
+      "createFirstNoteInProject": "+ Criar primeira nota no projeto",
+      "createFirstTaskInProject": "+ Criar primeira tarefa no projeto",
+      "emptyProjectTasks": "Nenhuma tarefa vinculada a este projeto ainda",
+      "projectNoteLabel": "Nota do projeto",
+      "saveChanges": "Salvar alterações"
+    },
+    "newItem": {
+      "title": "Criar",
+      "create": "Criar",
+      "taskProjectLabel": "Atribuir ao projeto (opcional):",
+      "noProject": "Sem projeto",
+      "noProjectStandaloneNote": "Sem projeto (nota independente)",
+      "taskTitlePlaceholder": "O que precisa ser feito?",
+      "taskDescPlaceholder": "Descrição da tarefa (opcional)...",
+      "dateLabel": "Data",
+      "timeLabel": "Hora",
+      "priorityLabel": "Prioridade",
+      "noteProjectLabel": "Atribuir ao projeto (opcional):",
+      "noteTitlePlaceholder": "Título da nota...",
+      "noteContentPlaceholder": "Escreva seus pensamentos...",
+      "projectColorLabel": "Etiqueta de cor do projeto",
+      "projectTitlePlaceholder": "Título do projeto...",
+      "projectDescPlaceholder": "Breve descrição e objetivos do projeto..."
     },
     "ai": {
       "title": "Assistente IA",
@@ -1582,6 +1943,10 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "high": "alta",
       "medium": "media",
       "low": "bassa"
+    ,
+      "allDay": "Tutto il giorno",
+      "generalProject": "Generale",
+      "createFirstTask": "+ Crea attività per questo giorno"
     },
     "notes": {
       "title": "Note",
@@ -1595,6 +1960,12 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "delete": "Elimina",
       "titlePlaceholder": "Titolo della nota...",
       "contentPlaceholder": "Scrivi i tuoi pensieri..."
+    ,
+      "emptyNotesDesc": "Pensieri, idee, piani...",
+      "createFirstNote": "+ Crea prima nota",
+      "untitledNote": "Senza titolo",
+      "voiceInput": "Input vocale",
+      "deleteConfirm": "Eliminare questa nota?"
     },
     "projects": {
       "title": "Progetti",
@@ -1607,6 +1978,48 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "progress": "Progresso",
       "inProgress": "In corso",
       "noDescription": "Nessuna descrizione"
+    ,
+      "subtitle": "Spazi dedicati per i tuoi obiettivi",
+      "notesWord": "note",
+      "tasksWord": "attività",
+      "createFirstProject": "+ Crea primo progetto",
+      "allProjects": "Tutti i progetti",
+      "deleteProject": "Elimina progetto",
+      "editProject": "Modifica progetto",
+      "editProjectTitle": "Modifica dettagli del progetto",
+      "projectTitlePlaceholder": "Titolo del progetto...",
+      "projectDescPlaceholder": "Breve descrizione e obiettivi del progetto...",
+      "projectColorLabel": "Etichetta colore del progetto",
+      "progressLabel": "Progresso generale:",
+      "projectNotesTab": "Note del progetto",
+      "projectTasksTab": "Attività del progetto",
+      "projectNotesSection": "Note del progetto:",
+      "projectTasksSection": "Attività del progetto:",
+      "addNoteToProject": "Aggiungi nota al progetto",
+      "addTaskToProject": "Aggiungi attività al progetto",
+      "createFirstNoteInProject": "+ Crea la prima nota nel progetto",
+      "createFirstTaskInProject": "+ Crea la prima attività nel progetto",
+      "emptyProjectTasks": "Nessuna attività collegata a questo progetto",
+      "projectNoteLabel": "Nota del progetto",
+      "saveChanges": "Salva modifiche"
+    },
+    "newItem": {
+      "title": "Crea",
+      "create": "Crea",
+      "taskProjectLabel": "Assegna al progetto (opzionale):",
+      "noProject": "Nessun progetto",
+      "noProjectStandaloneNote": "Nessun progetto (nota autonoma)",
+      "taskTitlePlaceholder": "Cosa bisogna fare?",
+      "taskDescPlaceholder": "Descrizione dell'attività (opzionale)...",
+      "dateLabel": "Data",
+      "timeLabel": "Ora",
+      "priorityLabel": "Priorità",
+      "noteProjectLabel": "Assegna al progetto (opzionale):",
+      "noteTitlePlaceholder": "Titolo della nota...",
+      "noteContentPlaceholder": "Scrivi i tuoi pensieri...",
+      "projectColorLabel": "Etichetta colore del progetto",
+      "projectTitlePlaceholder": "Titolo del progetto...",
+      "projectDescPlaceholder": "Breve descrizione e obiettivi del progetto..."
     },
     "ai": {
       "title": "Assistente IA",
@@ -1800,6 +2213,10 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "high": "高",
       "medium": "中",
       "low": "低"
+    ,
+      "allDay": "終日",
+      "generalProject": "一般",
+      "createFirstTask": "+ この日のタスクを作成"
     },
     "notes": {
       "title": "メモ",
@@ -1813,6 +2230,12 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "delete": "削除",
       "titlePlaceholder": "メモのタイトル...",
       "contentPlaceholder": "考えを書き留めましょう..."
+    ,
+      "emptyNotesDesc": "思考、アイデア、計画...",
+      "createFirstNote": "+ 最初のメモを作成",
+      "untitledNote": "無題",
+      "voiceInput": "音声入力",
+      "deleteConfirm": "このメモを削除しますか？"
     },
     "projects": {
       "title": "プロジェクト",
@@ -1825,6 +2248,48 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "progress": "進捗",
       "inProgress": "進行中",
       "noDescription": "説明なし"
+    ,
+      "subtitle": "目標のための専用ワークスペース",
+      "notesWord": "メモ",
+      "tasksWord": "タスク",
+      "createFirstProject": "+ 最初のプロジェクトを作成",
+      "allProjects": "すべてのプロジェクト",
+      "deleteProject": "プロジェクトを削除",
+      "editProject": "プロジェクトを編集",
+      "editProjectTitle": "プロジェクト詳細を編集",
+      "projectTitlePlaceholder": "プロジェクト名...",
+      "projectDescPlaceholder": "プロジェクトの概要と目標...",
+      "projectColorLabel": "プロジェクトのカラータグ",
+      "progressLabel": "全体の進捗状況:",
+      "projectNotesTab": "プロジェクトのメモ",
+      "projectTasksTab": "プロジェクトのタスク",
+      "projectNotesSection": "プロジェクトのメモ:",
+      "projectTasksSection": "プロジェクトのタスク:",
+      "addNoteToProject": "プロジェクトにメモを追加",
+      "addTaskToProject": "プロジェクトにタスクを追加",
+      "createFirstNoteInProject": "+ プロジェクトに最初のメモを作成",
+      "createFirstTaskInProject": "+ プロジェクトに最初のタスクを作成",
+      "emptyProjectTasks": "このプロジェクトに関連付けられたタスクはまだありません",
+      "projectNoteLabel": "プロジェクトメモ",
+      "saveChanges": "変更を保存"
+    },
+    "newItem": {
+      "title": "新規作成",
+      "create": "作成",
+      "taskProjectLabel": "プロジェクトに割り当て（任意）:",
+      "noProject": "プロジェクトなし",
+      "noProjectStandaloneNote": "プロジェクトなし（独立したメモ）",
+      "taskTitlePlaceholder": "何をしますか？",
+      "taskDescPlaceholder": "タスクの説明（任意）...",
+      "dateLabel": "日付",
+      "timeLabel": "時間",
+      "priorityLabel": "優先度",
+      "noteProjectLabel": "プロジェクトに割り当て（任意）:",
+      "noteTitlePlaceholder": "メモのタイトル...",
+      "noteContentPlaceholder": "思考を書き留める...",
+      "projectColorLabel": "プロジェクトのカラータグ",
+      "projectTitlePlaceholder": "プロジェクト名...",
+      "projectDescPlaceholder": "プロジェクトの概要と目標..."
     },
     "ai": {
       "title": "AIアシスタント",
@@ -2018,6 +2483,10 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "high": "높음",
       "medium": "중간",
       "low": "낮음"
+    ,
+      "allDay": "종일",
+      "generalProject": "일반",
+      "createFirstTask": "+ 이 날의 할 일 만들기"
     },
     "notes": {
       "title": "노트",
@@ -2031,6 +2500,12 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "delete": "삭제",
       "titlePlaceholder": "노트 제목...",
       "contentPlaceholder": "생각을 적어보세요..."
+    ,
+      "emptyNotesDesc": "생각, 아이디어, 계획...",
+      "createFirstNote": "+ 첫 번째 메모 만들기",
+      "untitledNote": "제목 없음",
+      "voiceInput": "음성 입력",
+      "deleteConfirm": "이 메모를 삭제하시겠습니까?"
     },
     "projects": {
       "title": "프로젝트",
@@ -2043,6 +2518,48 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "progress": "진행률",
       "inProgress": "진행 중",
       "noDescription": "설명 없음"
+    ,
+      "subtitle": "목표를 위한 전용 작업 공간",
+      "notesWord": "메모",
+      "tasksWord": "할 일",
+      "createFirstProject": "+ 첫 번째 프로젝트 만들기",
+      "allProjects": "모든 프로젝트",
+      "deleteProject": "프로젝트 삭제",
+      "editProject": "프로젝트 수정",
+      "editProjectTitle": "프로젝트 세부정보 수정",
+      "projectTitlePlaceholder": "프로젝트 제목...",
+      "projectDescPlaceholder": "간단한 프로젝트 설명 및 목표...",
+      "projectColorLabel": "프로젝트 색상 태그",
+      "progressLabel": "전체 진행 상황:",
+      "projectNotesTab": "프로젝트 메모",
+      "projectTasksTab": "프로젝트 할 일",
+      "projectNotesSection": "프로젝트 메모:",
+      "projectTasksSection": "프로젝트 할 일:",
+      "addNoteToProject": "프로젝트에 메모 추가",
+      "addTaskToProject": "프로젝트에 할 일 추가",
+      "createFirstNoteInProject": "+ 프로젝트에 첫 번째 메모 만들기",
+      "createFirstTaskInProject": "+ 프로젝트에 첫 번째 할 일 만들기",
+      "emptyProjectTasks": "이 프로젝트에 연결된 할 일이 아직 없습니다",
+      "projectNoteLabel": "프로젝트 메모",
+      "saveChanges": "변경사항 저장"
+    },
+    "newItem": {
+      "title": "새로 만들기",
+      "create": "만들기",
+      "taskProjectLabel": "프로젝트에 할당 (선택 사항):",
+      "noProject": "프로젝트 없음",
+      "noProjectStandaloneNote": "프로젝트 없음 (독립 메모)",
+      "taskTitlePlaceholder": "무엇을 해야 하나요?",
+      "taskDescPlaceholder": "할 일 설명 (선택 사항)...",
+      "dateLabel": "날짜",
+      "timeLabel": "시간",
+      "priorityLabel": "우선순위",
+      "noteProjectLabel": "프로젝트에 할당 (선택 사항):",
+      "noteTitlePlaceholder": "메모 제목...",
+      "noteContentPlaceholder": "생각을 적어보세요...",
+      "projectColorLabel": "프로젝트 색상 태그",
+      "projectTitlePlaceholder": "프로젝트 제목...",
+      "projectDescPlaceholder": "간단한 프로젝트 설명 및 목표..."
     },
     "ai": {
       "title": "AI 어시스턴트",

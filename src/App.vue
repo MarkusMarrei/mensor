@@ -50,60 +50,41 @@ onMounted(async () => {
     });
   } catch {}
 
-  // Neutral baseline seed data: 1 project, 3 tasks, 1 note
-  const SEED_VERSION_KEY = 'mensor_seed_v4_applied';
+  // Universal baseline seed data: 1 project, 1 note, 1 task (in universal English)
+  const SEED_VERSION_KEY = 'mensor_seed_v4_universal';
   if (!localStorage.getItem(SEED_VERSION_KEY) || (notesStore.notes.length === 0 && projectsStore.projects.length === 0)) {
     try {
       await db.notes.clear();
       await db.tasks.clear();
       await db.projects.clear();
 
-      // 1 Project (neutral demo project)
+      // 1 Project (neutral demo project in universal English)
       const proj = await projectsStore.addProject({
-        title: 'Запуск нового проекта',
-        description: 'Планирование ключевых этапов, задач и идей для реализации',
+        title: 'Project Apollo',
+        description: 'Strategic planning, creative milestones, and workflow hub',
         color: '#E11D48',
         status: 'in_progress',
-        progress: 33,
+        progress: 0,
       });
 
-      // 1 Standalone Note (neutral welcome note)
+      // 1 Standalone Note (neutral welcome note in universal English)
       await notesStore.addNote({
-        title: 'Добро пожаловать в Mensor',
-        content: 'Это ваше приватное автономное пространство для мыслей, планов и проектов. Все данные хранятся локально на вашем устройстве с надёжным шифрованием AES-256.',
+        title: 'Welcome to Mensor',
+        content: 'This is your private, offline-first workspace for thoughts, plans, and projects. All data is securely stored locally with AES-256 encryption.',
         images: [],
         projectId: null,
-        tags: ['начало', 'инфо'],
+        tags: ['welcome', 'getting-started'],
       });
 
-      // 3 Neutral Tasks
+      // 1 Task (neutral task in universal English)
       const today = new Date().toISOString().slice(0, 10);
       await tasksStore.addTask({
-        title: 'Определить ключевые цели на неделю',
-        description: 'Сформулировать основные приоритеты и желаемые результаты',
+        title: 'Define weekly priorities',
+        description: 'Outline key goals and milestones for the upcoming days',
         date: today,
         timeSlot: '10:00',
-        status: 'completed',
+        status: 'pending',
         priority: 'high',
-        projectId: proj.id,
-      });
-
-      await tasksStore.addTask({
-        title: 'Ознакомиться с функциями приложения',
-        description: 'Попробовать создать заметку, задачу и проект',
-        date: today,
-        timeSlot: '14:00',
-        status: 'pending',
-        priority: 'medium',
-      });
-
-      await tasksStore.addTask({
-        title: 'Настроить профиль и защиту входа',
-        description: 'Выбрать PIN-код или вход по биометрии в настройках',
-        date: today,
-        timeSlot: '18:00',
-        status: 'pending',
-        priority: 'low',
         projectId: proj.id,
       });
 

@@ -74,17 +74,17 @@ const monthActivity = computed(() => {
   });
 
   const maxTasks = Math.max(1, ...monthCounts);
-  const ruMonths = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+  const defaultMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  return ruMonths.map((ru, idx) => {
-    let monthLabel = ru;
+  return defaultMonths.map((defM, idx) => {
+    let monthLabel = defM;
     try {
       const d = new Date(currentYear, idx, 1);
       const loc = d.toLocaleDateString(appStore.settings.language, { month: 'short' });
       const cleaned = loc.replace('.', '').trim();
       monthLabel = cleaned.charAt(0).toUpperCase() + cleaned.slice(1, 3);
     } catch {
-      monthLabel = ru;
+      monthLabel = defM;
     }
 
     const count = monthCounts[idx];
@@ -297,7 +297,7 @@ function getProjectProgress(projectId: string): number {
                         : 'bg-white/10 h-1 rounded-full'
                     ]"
                     :style="{ height: m.tasks > 0 ? `${m.heightPct}%` : '4px' }"
-                    :title="`${m.month}: ${m.tasks} задач`"
+                    :title="`${m.month}: ${m.tasks} ${appStore.t.dashboard.tasksWord}`"
                   />
                 </div>
 
@@ -338,13 +338,13 @@ function getProjectProgress(projectId: string): number {
           class="transition-all duration-300 rounded-full"
           :class="activeHeroSlide === 0 ? 'w-5 h-1.5 bg-mensor-red shadow-sm' : 'w-1.5 h-1.5 bg-zinc-600 hover:bg-zinc-400'"
           @click="scrollToSlide(0)"
-          aria-label="Слайд 1: Неделя и день"
+          aria-label="Slide 1"
         />
         <button
           class="transition-all duration-300 rounded-full"
           :class="activeHeroSlide === 1 ? 'w-5 h-1.5 bg-mensor-red shadow-sm' : 'w-1.5 h-1.5 bg-zinc-600 hover:bg-zinc-400'"
           @click="scrollToSlide(1)"
-          aria-label="Слайд 2: Статистика года"
+          aria-label="Slide 2"
         />
       </div>
     </div>

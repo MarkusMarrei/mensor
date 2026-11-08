@@ -18,7 +18,8 @@ import {
   Volume2,
   VolumeX,
   Mic,
-  X
+  X,
+  Edit3
 } from 'lucide-vue-next';
 
 const appStore = useAppStore();
@@ -62,6 +63,30 @@ function formatPriority(priority: Priority): string {
 }
 
 const activeSubTab = ref<'notes' | 'tasks'>('notes');
+
+// --- Edit Project Details Modal State ---
+const isEditingProject = ref(false);
+const editProjectTitle = ref('');
+const editProjectDescription = ref('');
+const editProjectColor = ref('#E11D48');
+
+function openEditProjectModal() {
+  if (!activeProject.value) return;
+  editProjectTitle.value = activeProject.value.title;
+  editProjectDescription.value = activeProject.value.description || '';
+  editProjectColor.value = activeProject.value.color || '#E11D48';
+  isEditingProject.value = true;
+}
+
+async function saveProjectDetails() {
+  if (!activeProject.value) return;
+  await projectsStore.updateProject(activeProject.value.id, {
+    title: editProjectTitle.value.trim() || activeProject.value.title,
+    description: editProjectDescription.value.trim(),
+    color: editProjectColor.value,
+  });
+  isEditingProject.value = false;
+}
 
 // --- Note Detail & Editor Modal in Project ---
 const selectedProjectNote = ref<Note | null>(null);
@@ -112,18 +137,16 @@ function handleVoiceInputEditNote() {
 async function saveProjectNoteChanges() {
   if (!selectedProjectNote.value) return;
   await notesStore.updateNote(selectedProjectNote.value.id, {
-    title: editTitle.value.trim() || 'Без названия',
+    title: editTitle.value.trim() || appStore.t.notes.untitledNote,
     content: editContent.value.trim(),
     images: [],
   });
   closeProjectNoteEditor();
 }
 
-
-
 async function deleteSelectedProjectNote() {
   if (!selectedProjectNote.value) return;
-  if (confirm('Удалить эту записку?')) {
+  if (confirm(appStore.t.notes.deleteConfirm)) {
     await notesStore.deleteNote(selectedProjectNote.value.id);
     closeProjectNoteEditor();
   }
@@ -174,7 +197,7 @@ function formatDate(ts: number): string {
       <div class="flex items-center justify-between">
         <div>
           <h1 class="text-xl font-bold text-zinc-900 tracking-tight">{{ appStore.t.projects.title }}</h1>
-          <p class="text-xs text-zinc-500 mt-0.5">Изолированные пространства для работы</p>
+          <p class="text-xs text-zinc-500 mt-0.5">{{ appStore.t.projects.subtitle }}</p>
         </div>
 
         <button
@@ -201,17 +224,17 @@ function formatDate(ts: number): string {
                 :style="{ backgroundColor: p.color || '#E11D48' }"
               />
               <span class="text-[11px] font-bold text-zinc-400">
-                {{ notesStore.getProjectNotes(p.id).length }} записок
+                {{ notesStore.getProjectNotes(p.id).length }} {{ appStore.t.projects.notesWord }}
               </span>
             </div>
 
             <h3 class="text-base font-bold text-zinc-900 line-clamp-1 mb-1">{{ p.title }}</h3>
-            <p class="text-xs text-zinc-500 line-clamp-2 leading-relaxed">{{ p.description || 'Проект без описания' }}</p>
+            <p class="text-xs text-zinc-500 line-clamp-2 leading-relaxed">{{ p.description || appStore.t.projects.noDescription }}</p>
           </div>
 
           <div>
             <div class="flex items-center justify-between text-xs font-semibold text-zinc-600 mb-1.5">
-              <span>Прогресс</span>
+              <span>{{ appStore.t.projects.progress }}</span>
               <span class="font-bold text-zinc-900">{{ getProjectProgress(p.id) }}%</span>
             </div>
             <div class="w-full bg-zinc-100 rounded-full h-2 overflow-hidden">
@@ -234,7 +257,7 @@ function formatDate(ts: number): string {
           class="mt-3 text-xs font-semibold text-mensor-red hover:underline"
           @click="appStore.openNewItemModal({ type: 'project' })"
         >
-          + Создать первый проект
+          {{ appStore.t.projects.createFirstProject }}
         </button>
       </div>
     </div>
@@ -248,39 +271,64 @@ function formatDate(ts: number): string {
           @click="projectsStore.activeProjectId = null"
         >
           <ArrowLeft class="w-3.5 h-3.5" />
-          <span>Все проекты</span>
+          <span>{{ appStore.t.projects.allProjects }}</span>
         </button>
 
-        <button
-          class="w-9 h-9 rounded-2xl bg-rose-50 text-rose-600 hover:bg-rose-100 flex items-center justify-center transition active:scale-95"
-          @click="handleDeleteProject"
-          title="Удалить проект"
-        >
-          <Trash2 class="w-4 h-4" />
-        </button>
+        <div class="flex items-center gap-2">
+          <!-- Edit Project Button -->
+          <button
+            class="w-9 h-9 rounded-2xl bg-zinc-100 text-zinc-700 hover:bg-zinc-200 flex items-center justify-center transition active:scale-95"
+            @click="openEditProjectModal"
+            :title="appStore.t.projects.editProject"
+            :aria-label="appStore.t.projects.editProject"
+          >
+            <Edit3 class="w-4 h-4" />
+          </button>
+
+          <!-- Delete Project Button -->
+          <button
+            class="w-9 h-9 rounded-2xl bg-rose-50 text-rose-600 hover:bg-rose-100 flex items-center justify-center transition active:scale-95"
+            @click="handleDeleteProject"
+            :title="appStore.t.projects.deleteProject"
+            :aria-label="appStore.t.projects.deleteProject"
+          >
+            <Trash2 class="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
-      <!-- Project Header Card with Automated Dynamic Progress -->
+      <!-- Project Header Card with Automated Dynamic Progress & Edit capability -->
       <div class="p-6 rounded-3xl bg-white border border-mensor-border/80 shadow-soft space-y-4">
         <div class="flex items-start gap-3">
           <span
-            class="w-4 h-4 rounded-full mt-1 shrink-0 ring-4 ring-zinc-50"
+            class="w-4 h-4 rounded-full mt-1 shrink-0 ring-4 ring-zinc-50 cursor-pointer"
             :style="{ backgroundColor: activeProject.color || '#E11D48' }"
+            @click="openEditProjectModal"
+            :title="appStore.t.projects.editProject"
           />
           <div class="flex-1">
-            <h2 class="text-lg font-bold text-zinc-900 leading-tight">{{ activeProject.title }}</h2>
-            <p class="text-xs text-zinc-500 mt-1 leading-relaxed">{{ activeProject.description || 'Изолированное рабочее пространство' }}</p>
+            <div class="flex items-center gap-2">
+              <h2 class="text-lg font-bold text-zinc-900 leading-tight">{{ activeProject.title }}</h2>
+              <button
+                class="p-1 rounded-lg text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition"
+                @click="openEditProjectModal"
+                :title="appStore.t.projects.editProject"
+              >
+                <Edit3 class="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <p class="text-xs text-zinc-500 mt-1 leading-relaxed">{{ activeProject.description || appStore.t.projects.noDescription }}</p>
           </div>
         </div>
 
         <!-- Automated Calculated Progress Bar (Zero Manual Slider) -->
         <div>
           <div class="flex items-center justify-between text-xs font-semibold text-zinc-600 mb-1.5">
-            <span>Прогресс выполнения:</span>
+            <span>{{ appStore.t.projects.progressLabel }}</span>
             <span class="font-bold text-zinc-900">
               {{ activeProjectProgress }}%
               <span class="font-normal text-zinc-400 text-[11px]">
-                ({{ projectTasks.filter(t => t.status === 'completed').length }}/{{ projectTasks.length }} задач)
+                ({{ projectTasks.filter(t => t.status === 'completed').length }}/{{ projectTasks.length }} {{ appStore.t.projects.tasksWord }})
               </span>
             </span>
           </div>
@@ -301,7 +349,7 @@ function formatDate(ts: number): string {
           @click="activeSubTab = 'notes'"
         >
           <FileText class="w-3.5 h-3.5" />
-          <span>Записи проекта ({{ projectNotes.length }})</span>
+          <span>{{ appStore.t.projects.projectNotesTab }} ({{ projectNotes.length }})</span>
         </button>
 
         <button
@@ -310,20 +358,20 @@ function formatDate(ts: number): string {
           @click="activeSubTab = 'tasks'"
         >
           <CheckSquare class="w-3.5 h-3.5" />
-          <span>Задачи проекта ({{ projectTasks.length }})</span>
+          <span>{{ appStore.t.projects.projectTasksTab }} ({{ projectTasks.length }})</span>
         </button>
       </div>
 
       <!-- 1. PROJECT NOTES (ISOLATED) -->
       <div v-if="activeSubTab === 'notes'" class="space-y-3">
         <div class="flex items-center justify-between">
-          <span class="text-xs text-zinc-500 font-medium">Записки проекта:</span>
+          <span class="text-xs text-zinc-500 font-medium">{{ appStore.t.projects.projectNotesSection }}</span>
           <button
             class="text-xs font-semibold text-rose-600 hover:underline flex items-center gap-1 bg-rose-50 px-2.5 py-1 rounded-xl transition"
             @click="appStore.openNewItemModal({ type: 'note', projectId: activeProject.id })"
           >
             <Plus class="w-3.5 h-3.5" />
-            <span>Добавить записку в проект</span>
+            <span>{{ appStore.t.projects.addNoteToProject }}</span>
           </button>
         </div>
 
@@ -336,7 +384,7 @@ function formatDate(ts: number): string {
           >
             <div>
               <div class="flex items-center justify-between mb-1.5">
-                <h4 class="text-xs font-bold text-zinc-900 line-clamp-1">{{ note.title }}</h4>
+                <h4 class="text-xs font-bold text-zinc-900 line-clamp-1">{{ note.title || appStore.t.notes.untitledNote }}</h4>
                 <button
                   class="w-6 h-6 rounded-full flex items-center justify-center transition"
                   :class="[
@@ -345,7 +393,7 @@ function formatDate(ts: number): string {
                       : 'text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100'
                   ]"
                   @click="handleToggleSpeech(note, $event)"
-                  title="Озвучить"
+                  :title="appStore.t.notes.speakText"
                 >
                   <VolumeX v-if="currentlySpeakingId === note.id" class="w-3.5 h-3.5" />
                   <Volume2 v-else class="w-3.5 h-3.5" />
@@ -360,12 +408,12 @@ function formatDate(ts: number): string {
         </div>
 
         <div v-else class="p-8 rounded-3xl bg-white border border-dashed border-zinc-200 text-center shadow-soft">
-          <p class="text-xs text-zinc-400">В этом проекте пока нет записок</p>
+          <p class="text-xs text-zinc-400">{{ appStore.t.projects.emptyProjectNotes }}</p>
           <button
             class="mt-2.5 text-xs font-semibold text-mensor-red hover:underline"
             @click="appStore.openNewItemModal({ type: 'note', projectId: activeProject.id })"
           >
-            + Создать первую записку в проекте
+            {{ appStore.t.projects.createFirstNoteInProject }}
           </button>
         </div>
       </div>
@@ -373,13 +421,13 @@ function formatDate(ts: number): string {
       <!-- 2. PROJECT TASKS (ISOLATED) -->
       <div v-else class="space-y-3">
         <div class="flex items-center justify-between">
-          <span class="text-xs text-zinc-500 font-medium">Задачи проекта:</span>
+          <span class="text-xs text-zinc-500 font-medium">{{ appStore.t.projects.projectTasksSection }}</span>
           <button
             class="text-xs font-semibold text-emerald-600 hover:underline flex items-center gap-1 bg-emerald-50 px-2.5 py-1 rounded-xl transition"
             @click="appStore.openNewItemModal({ type: 'task', projectId: activeProject.id })"
           >
             <Plus class="w-3.5 h-3.5" />
-            <span>Добавить задачу в проект</span>
+            <span>{{ appStore.t.projects.addTaskToProject }}</span>
           </button>
         </div>
 
@@ -406,8 +454,7 @@ function formatDate(ts: number): string {
                 </h5>
                 <p v-if="task.description" class="text-[11px] text-zinc-500 line-clamp-1 mt-0.5">{{ task.description }}</p>
                 <div class="flex items-center gap-2 mt-1">
-                  <span class="text-[10px] text-zinc-400">{{ task.date }} • {{ task.timeSlot || 'Весь день' }}</span>
-                  <!-- Point 7: Localized Priority Badge -->
+                  <span class="text-[10px] text-zinc-400">{{ task.date }} • {{ task.timeSlot || appStore.t.schedule.allDay }}</span>
                   <span
                     class="text-[9px] font-bold px-2 py-0.5 rounded-md"
                     :class="[
@@ -425,13 +472,86 @@ function formatDate(ts: number): string {
         </div>
 
         <div v-else class="p-8 rounded-3xl bg-white border border-dashed border-zinc-200 text-center shadow-soft">
-          <p class="text-xs text-zinc-400">В этом проекте пока нет привязанных задач</p>
+          <p class="text-xs text-zinc-400">{{ appStore.t.projects.emptyProjectTasks }}</p>
           <button
             class="mt-2.5 text-xs font-semibold text-emerald-600 hover:underline"
             @click="appStore.openNewItemModal({ type: 'task', projectId: activeProject.id })"
           >
-            + Создать первую задачу в проекте
+            {{ appStore.t.projects.createFirstTaskInProject }}
           </button>
+        </div>
+      </div>
+
+      <!-- EDIT PROJECT DETAILS MODAL -->
+      <div
+        v-if="isEditingProject && activeProject"
+        class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4"
+      >
+        <div class="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-md max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-zinc-200">
+          <!-- Header -->
+          <div class="px-5 py-4 border-b border-zinc-100 flex items-center justify-between">
+            <h3 class="text-base font-bold text-zinc-900">{{ appStore.t.projects.editProjectTitle }}</h3>
+            <button
+              class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-500 hover:text-black transition"
+              @click="isEditingProject = false"
+            >
+              <X class="w-4 h-4" />
+            </button>
+          </div>
+
+          <!-- Body -->
+          <div class="p-5 flex-1 overflow-y-auto space-y-4">
+            <div>
+              <label class="block text-[11px] font-semibold text-zinc-500 mb-1.5">{{ appStore.t.newItem.projectTitlePlaceholder }}</label>
+              <input
+                type="text"
+                v-model="editProjectTitle"
+                :placeholder="appStore.t.projects.projectTitlePlaceholder"
+                class="w-full text-sm font-semibold px-3.5 py-2.5 rounded-2xl border border-zinc-200 focus:outline-none focus:border-mensor-red"
+              />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-zinc-500 mb-1.5">{{ appStore.t.newItem.projectDescPlaceholder }}</label>
+              <textarea
+                v-model="editProjectDescription"
+                rows="3"
+                :placeholder="appStore.t.projects.projectDescPlaceholder"
+                class="w-full text-xs text-zinc-700 leading-relaxed rounded-2xl border border-zinc-200 p-3.5 focus:outline-none focus:border-mensor-red"
+              ></textarea>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-zinc-500 mb-1.5">{{ appStore.t.projects.projectColorLabel }}</label>
+              <div class="flex gap-2.5">
+                <button
+                  v-for="c in ['#E11D48', '#2563EB', '#10B981', '#F59E0B', '#8B5CF6', '#18181B']"
+                  :key="c"
+                  type="button"
+                  class="w-7 h-7 rounded-full border-2 transition"
+                  :style="{ backgroundColor: c }"
+                  :class="editProjectColor === c ? 'border-black scale-110 shadow-sm' : 'border-transparent'"
+                  @click="editProjectColor = c"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="p-4 border-t border-zinc-100 bg-zinc-50/50 flex items-center justify-end gap-2">
+            <button
+              class="px-4 py-2.5 rounded-xl border border-zinc-200 text-xs font-semibold text-zinc-600 hover:bg-zinc-100 transition"
+              @click="isEditingProject = false"
+            >
+              {{ appStore.t.common.cancel }}
+            </button>
+            <button
+              class="px-6 py-2.5 bg-mensor-dark text-white rounded-xl text-xs font-semibold shadow-soft hover:bg-black transition"
+              @click="saveProjectDetails"
+            >
+              {{ appStore.t.projects.saveChanges }}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -452,19 +572,19 @@ function formatDate(ts: number): string {
                     : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
                 ]"
                 @click="handleToggleSpeech(selectedProjectNote)"
-                title="Озвучить записку"
+                :title="appStore.t.notes.speakText"
               >
                 <VolumeX v-if="currentlySpeakingId === selectedProjectNote.id" class="w-4 h-4" />
                 <Volume2 v-else class="w-4 h-4" />
               </button>
-              <span class="text-xs text-zinc-400 font-medium">Записка проекта</span>
+              <span class="text-xs text-zinc-400 font-medium">{{ appStore.t.projects.projectNoteLabel }}</span>
             </div>
 
             <div class="flex items-center gap-1.5">
               <button
                 class="w-8 h-8 rounded-full bg-rose-50 text-rose-600 hover:bg-rose-100 flex items-center justify-center transition"
                 @click="deleteSelectedProjectNote"
-                title="Удалить записку"
+                :title="appStore.t.notes.delete"
               >
                 <Trash2 class="w-4 h-4" />
               </button>
@@ -482,7 +602,7 @@ function formatDate(ts: number): string {
             <input
               type="text"
               v-model="editTitle"
-              placeholder="Заголовок записки..."
+              :placeholder="appStore.t.notes.titlePlaceholder"
               class="w-full text-base font-bold text-zinc-900 border-b border-zinc-200 pb-2 focus:outline-none focus:border-mensor-red"
             />
 
@@ -490,7 +610,7 @@ function formatDate(ts: number): string {
               <textarea
                 v-model="editContent"
                 rows="6"
-                placeholder="Текст мысли..."
+                :placeholder="appStore.t.notes.contentPlaceholder"
                 class="w-full text-xs text-zinc-700 leading-relaxed rounded-2xl border border-zinc-200 p-3.5 pr-10 focus:outline-none focus:border-mensor-red"
               ></textarea>
               <!-- STT Voice Input button -->
@@ -499,7 +619,7 @@ function formatDate(ts: number): string {
                 class="absolute right-3 bottom-4 w-7 h-7 rounded-full flex items-center justify-center transition"
                 :class="isRecordingEditNote ? 'bg-mensor-red text-white animate-pulse' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'"
                 @click="handleVoiceInputEditNote"
-                title="Голосовой ввод"
+                :title="appStore.t.notes.voiceInput"
               >
                 <Mic class="w-3.5 h-3.5" />
               </button>
@@ -512,13 +632,13 @@ function formatDate(ts: number): string {
               class="px-4 py-2.5 rounded-xl border border-zinc-200 text-xs font-semibold text-zinc-600 hover:bg-zinc-100"
               @click="closeProjectNoteEditor"
             >
-              Отмена
+              {{ appStore.t.common.cancel }}
             </button>
             <button
               class="px-6 py-2.5 bg-mensor-dark text-white rounded-xl text-xs font-semibold shadow-soft hover:bg-black transition"
               @click="saveProjectNoteChanges"
             >
-              Сохранить изменения
+              {{ appStore.t.projects.saveChanges }}
             </button>
           </div>
         </div>

@@ -49,7 +49,7 @@ async function finishOnboarding() {
   let pinHash: string | null = null;
   if (chosenSecurityType.value === 'pin') {
     if (pinCode.value.length < 4) {
-      pinError.value = appStore.t.security.pinLengthError || 'Минимум 4 цифры';
+      pinError.value = appStore.t.security.pinLengthError;
       return;
     }
     pinHash = await hashString(pinCode.value);
@@ -116,7 +116,7 @@ async function finishOnboarding() {
       <div v-else class="p-6 flex-1 overflow-y-auto">
         <div class="text-center mb-5">
           <h3 class="text-base font-bold text-zinc-900">{{ appStore.t.security.chooseMethod }}</h3>
-          <p class="text-xs text-zinc-400 mt-1">Защитите ваши персональные мысли и проекты</p>
+          <p class="text-xs text-zinc-400 mt-1">{{ appStore.t.security.safeVault }}</p>
         </div>
 
         <div class="space-y-2.5 mb-4">
@@ -130,7 +130,7 @@ async function finishOnboarding() {
               <Fingerprint class="w-5 h-5 text-mensor-red" />
               <div>
                 <div class="text-xs font-semibold text-zinc-900">{{ appStore.t.security.biometric }}</div>
-                <div class="text-[11px] text-zinc-400">Вход по отпечатку пальца</div>
+                <div class="text-[11px] text-zinc-400">{{ appStore.t.security.biometricProtectionDesc }}</div>
               </div>
             </div>
             <input type="radio" value="biometric" v-model="chosenSecurityType" class="accent-mensor-red" />
@@ -145,7 +145,7 @@ async function finishOnboarding() {
               <Lock class="w-5 h-5 text-zinc-700" />
               <div>
                 <div class="text-xs font-semibold text-zinc-900">{{ appStore.t.security.pin }}</div>
-                <div class="text-[11px] text-zinc-400">4-6 цифр для быстрого входа</div>
+                <div class="text-[11px] text-zinc-400">{{ appStore.t.security.pinProtectionDesc }}</div>
               </div>
             </div>
             <input type="radio" value="pin" v-model="chosenSecurityType" class="accent-mensor-red" />
@@ -159,8 +159,8 @@ async function finishOnboarding() {
             <div class="flex items-center gap-3">
               <Shield class="w-5 h-5 text-zinc-400" />
               <div>
-                <div class="text-xs font-semibold text-zinc-900">{{ appStore.t.security.none || 'Без защиты' }}</div>
-                <div class="text-[11px] text-zinc-400">Вход сразу без пароля</div>
+                <div class="text-xs font-semibold text-zinc-900">{{ appStore.t.security.none }}</div>
+                <div class="text-[11px] text-zinc-400">{{ appStore.t.security.none }}</div>
               </div>
             </div>
             <input type="radio" value="none" v-model="chosenSecurityType" class="accent-mensor-red" />
@@ -173,7 +173,7 @@ async function finishOnboarding() {
             type="password"
             maxlength="6"
             v-model="pinCode"
-            placeholder="Введите PIN-код"
+            :placeholder="appStore.t.security.enterPin"
             class="w-full text-center text-xl tracking-widest py-3 px-4 rounded-2xl border border-zinc-200 focus:outline-none focus:border-mensor-red focus:ring-1 focus:ring-mensor-red"
           />
           <p v-if="pinError" class="text-xs text-red-500 mt-1.5 text-center font-medium">{{ pinError }}</p>
@@ -183,7 +183,7 @@ async function finishOnboarding() {
           class="w-full py-3.5 px-4 bg-mensor-dark text-white rounded-2xl font-semibold text-sm shadow-float hover:bg-black active:scale-[0.98] transition mt-2"
           @click="finishOnboarding"
         >
-          Завершить и войти
+          {{ appStore.t.security.unlock }}
         </button>
       </div>
     </div>

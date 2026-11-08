@@ -83,9 +83,9 @@ async function toggleBiometrics() {
   } else {
     // Authenticate via native system prompt before enabling
     const success = await authenticateWithBiometrics({
-      title: 'Подтверждение отпечатка пальца',
-      subtitle: 'Приложите палец для включения биометрии',
-      cancelText: 'Отмена'
+      title: appStore.t.security.biometricActivated,
+      subtitle: appStore.t.security.touchFingerprintSensor,
+      cancelText: appStore.t.common.cancel
     });
 
     if (success) {
@@ -250,7 +250,7 @@ const languages: { code: LanguageCode; label: string }[] = [
                 <div>
                   <h4 class="text-xs font-bold text-zinc-900">{{ appStore.t.security.biometricProtection }}</h4>
                   <p class="text-[11px] text-zinc-500">
-                    {{ hasBiometrics ? appStore.t.security.biometricProtectionDesc : 'Не поддерживается данным устройством' }}
+                    {{ hasBiometrics ? appStore.t.security.biometricProtectionDesc : 'Not supported on this device' }}
                   </p>
                 </div>
               </div>
@@ -332,7 +332,7 @@ const languages: { code: LanguageCode; label: string }[] = [
               <img src="/Mensor.jpg" alt="Mensor Logo" class="w-full h-full object-cover" />
             </div>
             <h3 class="text-base font-bold text-zinc-900">Mensor: Project Notes</h3>
-            <p class="text-xs text-mensor-red font-semibold">Версия 3.5.0</p>
+            <p class="text-xs text-mensor-red font-semibold">{{ appStore.t.about.version }} 4.0.0</p>
             <p class="text-[11px] text-zinc-500 leading-relaxed max-w-xs mx-auto">
               {{ appStore.t.about.appDescription }}
             </p>

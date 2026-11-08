@@ -1,10 +1,7 @@
 {
   "name": "mensor",
   "version": "4.0.0",
-  "description": "Privacy-First Offline Hub for Notes, Schedule & Project Management",
-  "author": "Markus Marrei (Маркус Маррей)",
-  "license": "Apache-2.0",
-  "private": false,
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -34,10 +34,10 @@ export const DEFAULT_SETTINGS: AppSettings = {
   aiProvider: 'local_gemma3',
   aiSelectedModel: 'gemma-3-1b-it',
   downloadedModels: [],
-  userName: 'Пользователь',
-  userFirstName: 'Пользователь',
+  userName: 'User',
+  userFirstName: 'User',
   userLastName: '',
-  userBio: 'Создаю то, что люблю. Шаг за шагом.',
+  userBio: 'Focus on what matters. Step by step.',
   userAvatar: null,
 };
 

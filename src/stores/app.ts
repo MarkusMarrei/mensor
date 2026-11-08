@@ -27,7 +27,7 @@ export const useAppStore = defineStore('app', () => {
     if (settings.value.userFirstName && settings.value.userFirstName.trim()) {
       return settings.value.userFirstName.trim();
     }
-    return settings.value.userName || 'Пользователь';
+    return settings.value.userName || 'User';
   });
 
   function openNewItemModal(options?: {

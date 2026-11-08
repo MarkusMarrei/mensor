@@ -20,7 +20,7 @@ export interface SpeechRecognitionOptions {
 export function startSpeechRecognition(options: SpeechRecognitionOptions): boolean {
   if (!isSpeechRecognitionSupported()) {
     console.warn('Speech Recognition API is not supported in this environment');
-    options.onError?.('Распознавание речи не поддерживается в этом браузере.');
+    options.onError?.('Speech recognition not supported in this browser.');
     return false;
   }
 

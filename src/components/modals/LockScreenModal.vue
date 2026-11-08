@@ -101,11 +101,10 @@ async function verifyPin() {
       <div class="w-16 h-16 rounded-3xl overflow-hidden shadow-2xl ring-2 ring-rose-500/30 mb-3 p-0.5 bg-gradient-to-tr from-rose-600 to-zinc-800">
         <img src="/Mensor.jpg" alt="Mensor Logo" class="w-full h-full object-cover rounded-[22px]" />
       </div>
-      <h2 class="text-xl font-bold tracking-tight text-white flex items-center gap-1.5">
-        <span>Mensor</span>
-        <span class="w-1.5 h-1.5 rounded-full bg-rose-500" />
+      <h2 class="text-xl font-extrabold tracking-widest text-white text-center uppercase">
+        MENSOR
       </h2>
-      <p class="text-xs text-zinc-400 mt-0.5">{{ appStore.t.security.safeVault }}</p>
+      <p class="text-xs text-zinc-400 mt-1 text-center font-medium">{{ appStore.t.security.safeVault }}</p>
     </div>
 
     <!-- Error Toast -->

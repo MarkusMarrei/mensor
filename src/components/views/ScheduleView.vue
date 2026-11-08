@@ -67,9 +67,9 @@ function prevWeek() {
 }
 
 function getProjectTitle(projectId?: string | null): string {
-  if (!projectId) return 'Общее';
+  if (!projectId) return appStore.t.schedule.generalProject;
   const p = projectsStore.projects.find(proj => proj.id === projectId);
-  return p ? p.title : 'Проект';
+  return p ? p.title : appStore.t.projects.title;
 }
 </script>
 
@@ -146,7 +146,7 @@ function getProjectTitle(projectId?: string | null): string {
     <div class="space-y-3">
       <div class="flex items-center justify-between px-1">
         <span class="text-xs font-bold text-zinc-800 uppercase tracking-wider">
-          План на выбранный день
+          {{ appStore.t.schedule.subtitle }}
         </span>
         <button
           class="text-xs font-semibold text-mensor-red hover:underline flex items-center gap-1"
@@ -166,7 +166,7 @@ function getProjectTitle(projectId?: string | null): string {
           <!-- Time slot column -->
           <div class="w-14 text-right pt-2 shrink-0">
             <span class="text-[11px] font-bold text-zinc-500">
-              {{ task.timeSlot || 'Весь день' }}
+              {{ task.timeSlot || appStore.t.schedule.allDay }}
             </span>
           </div>
 
@@ -231,7 +231,7 @@ function getProjectTitle(projectId?: string | null): string {
               <button
                 class="text-zinc-300 hover:text-red-500 text-xs transition p-1"
                 @click="tasksStore.deleteTask(task.id)"
-                title="Удалить задачу"
+                :title="appStore.t.common.delete"
               >
                 &times;
               </button>
@@ -249,7 +249,7 @@ function getProjectTitle(projectId?: string | null): string {
           class="mt-3 text-xs font-semibold text-mensor-red hover:underline"
           @click="appStore.openNewItemModal({ type: 'task' })"
         >
-          + Запланировать задачу на этот день
+          {{ appStore.t.schedule.createFirstTask }}
         </button>
       </div>
     </div>

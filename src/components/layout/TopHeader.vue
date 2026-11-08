@@ -11,21 +11,21 @@ const currentTabInfo = computed(() => {
   switch (appStore.currentTab) {
     case 'schedule':
       return {
-        title: appStore.t.nav.schedule || 'Задачи',
+        title: appStore.t.nav.schedule || 'Tasks',
         icon: Calendar,
         badgeClass: 'bg-sky-50/90 text-sky-800 border-sky-200/80',
         dotClass: 'bg-sky-500',
       };
     case 'notes':
       return {
-        title: appStore.t.nav.notes || 'Записки',
+        title: appStore.t.nav.notes || 'Notes',
         icon: FileText,
         badgeClass: 'bg-amber-50/90 text-amber-800 border-amber-200/80',
         dotClass: 'bg-amber-500',
       };
     case 'projects':
       return {
-        title: appStore.t.nav.projects || 'Проекты',
+        title: appStore.t.nav.projects || 'Projects',
         icon: FolderKanban,
         badgeClass: 'bg-rose-50/90 text-rose-800 border-rose-200/80',
         dotClass: 'bg-rose-500',
