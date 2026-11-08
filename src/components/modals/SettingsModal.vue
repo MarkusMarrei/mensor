@@ -12,12 +12,18 @@ import {
   KeyRound,
   Code2,
   User,
-  Lock
+  Lock,
+  Sliders,
+  Info
 } from 'lucide-vue-next';
 
 const appStore = useAppStore();
 
 const activeSettingsTab = ref<'general' | 'security' | 'about'>('general');
+
+function switchTab(tab: 'general' | 'security' | 'about') {
+  activeSettingsTab.value = tab;
+}
 
 // General tab state
 const localUserName = ref(appStore.settings.userName);
@@ -135,37 +141,43 @@ const languages: { code: LanguageCode; label: string }[] = [
         </button>
       </div>
 
-      <!-- Settings Tabs (3 equal columns, perfectly spaced 1-row layout on all smartphones) -->
-      <div class="grid grid-cols-3 border-b border-zinc-100 bg-zinc-50/50 px-3">
+      <!-- Settings Tabs Segmented Control -->
+      <div class="grid grid-cols-3 gap-1.5 p-1.5 mx-5 mt-4 mb-2 bg-zinc-100 rounded-2xl shrink-0">
         <button
-          class="py-3 px-2 border-b-2 text-xs font-semibold text-center transition truncate"
-          :class="activeSettingsTab === 'general' ? 'border-mensor-red text-mensor-red' : 'border-transparent text-zinc-500 hover:text-zinc-900'"
-          @click="activeSettingsTab === 'general'"
+          type="button"
+          class="py-2.5 px-2 rounded-xl flex items-center justify-center gap-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95"
+          :class="activeSettingsTab === 'general' ? 'bg-white shadow-soft text-mensor-red' : 'text-zinc-500 hover:text-zinc-900'"
+          @click="switchTab('general')"
         >
-          {{ appStore.t.settings.general }}
+          <Sliders class="w-3.5 h-3.5" />
+          <span class="truncate">{{ appStore.t.settings.general }}</span>
         </button>
 
         <button
-          class="py-3 px-2 border-b-2 text-xs font-semibold text-center transition truncate"
-          :class="activeSettingsTab === 'security' ? 'border-mensor-red text-mensor-red' : 'border-transparent text-zinc-500 hover:text-zinc-900'"
-          @click="activeSettingsTab === 'security'"
+          type="button"
+          class="py-2.5 px-2 rounded-xl flex items-center justify-center gap-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95"
+          :class="activeSettingsTab === 'security' ? 'bg-white shadow-soft text-mensor-red' : 'text-zinc-500 hover:text-zinc-900'"
+          @click="switchTab('security')"
         >
-          {{ appStore.t.settings.security }}
+          <Shield class="w-3.5 h-3.5" />
+          <span class="truncate">{{ appStore.t.settings.security }}</span>
         </button>
 
         <button
-          class="py-3 px-2 border-b-2 text-xs font-semibold text-center transition truncate"
-          :class="activeSettingsTab === 'about' ? 'border-mensor-red text-mensor-red' : 'border-transparent text-zinc-500 hover:text-zinc-900'"
-          @click="activeSettingsTab === 'about'"
+          type="button"
+          class="py-2.5 px-2 rounded-xl flex items-center justify-center gap-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95"
+          :class="activeSettingsTab === 'about' ? 'bg-white shadow-soft text-mensor-red' : 'text-zinc-500 hover:text-zinc-900'"
+          @click="switchTab('about')"
         >
-          {{ appStore.t.settings.about }}
+          <Info class="w-3.5 h-3.5" />
+          <span class="truncate">{{ appStore.t.settings.about }}</span>
         </button>
       </div>
 
       <!-- Modal Body -->
       <div class="p-6 flex-1 overflow-y-auto space-y-6">
         <!-- 1. GENERAL TAB -->
-        <div v-if="activeSettingsTab === 'general'" class="space-y-5">
+        <div v-show="activeSettingsTab === 'general'" class="space-y-5">
           <div>
             <label class="block text-xs font-semibold text-zinc-700 mb-1.5">{{ appStore.t.settings.userName }}</label>
             <input
@@ -204,7 +216,7 @@ const languages: { code: LanguageCode; label: string }[] = [
         </div>
 
         <!-- 2. SECURITY TAB (PIN + Biometrics) -->
-        <div v-else-if="activeSettingsTab === 'security'" class="space-y-4">
+        <div v-show="activeSettingsTab === 'security'" class="space-y-4">
           <div class="p-4 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-2">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2.5">
@@ -325,7 +337,7 @@ const languages: { code: LanguageCode; label: string }[] = [
         </div>
 
         <!-- 3. ABOUT APP TAB -->
-        <div v-else-if="activeSettingsTab === 'about'" class="space-y-4">
+        <div v-show="activeSettingsTab === 'about'" class="space-y-4">
           <!-- Logo & Brand Card -->
           <div class="text-center p-5 rounded-3xl bg-zinc-50 border border-zinc-200/80 space-y-2">
             <div class="w-16 h-16 rounded-3xl overflow-hidden shadow-float ring-2 ring-zinc-200 mx-auto">
