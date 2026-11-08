@@ -344,7 +344,7 @@ const languages: { code: LanguageCode; label: string }[] = [
               <img src="/Mensor.jpg" alt="Mensor Logo" class="w-full h-full object-cover" />
             </div>
             <h3 class="text-base font-bold text-zinc-900">Mensor: Project Notes</h3>
-            <p class="text-xs text-mensor-red font-semibold">{{ appStore.t.about.version }} 4.0.0</p>
+            <p class="text-xs text-mensor-red font-semibold">{{ appStore.t.about.version }} 5.0.0</p>
             <p class="text-[11px] text-zinc-500 leading-relaxed max-w-xs mx-auto">
               {{ appStore.t.about.appDescription }}
             </p>

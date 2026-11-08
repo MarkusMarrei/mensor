@@ -52,7 +52,7 @@ onMounted(async () => {
   } catch {}
 
   // Universal baseline seed data: 1 project, 1 note, 1 task (in universal English)
-  const SEED_VERSION_KEY = 'mensor_seed_v4_universal';
+  const SEED_VERSION_KEY = 'mensor_seed_v5_applied';
   if (!localStorage.getItem(SEED_VERSION_KEY) || (notesStore.notes.length === 0 && projectsStore.projects.length === 0)) {
     try {
       await db.notes.clear();
