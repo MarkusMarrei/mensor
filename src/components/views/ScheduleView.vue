@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 import { useAppStore } from '../../stores/app';
 import { useTasksStore, getTodayDateString } from '../../stores/tasks';
 import { useProjectsStore } from '../../stores/projects';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Check, Plus } from 'lucide-vue-next';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Check, Plus, Edit3 } from 'lucide-vue-next';
 
 const appStore = useAppStore();
 const tasksStore = useTasksStore();
@@ -172,7 +172,7 @@ function getProjectTitle(projectId?: string | null): string {
 
           <!-- Task Card (Styled with subtle sage/warm tint when active) -->
           <div
-            class="flex-1 rounded-3xl p-4 border transition-all duration-200"
+            class="flex-1 rounded-3xl p-4 border transition-all duration-200 cursor-pointer hover:border-zinc-300 hover:shadow-md"
             :class="[
               task.status === 'completed'
                 ? 'bg-zinc-50 border-zinc-200 opacity-60'
@@ -180,24 +180,26 @@ function getProjectTitle(projectId?: string | null): string {
                 ? 'bg-rose-50/50 border-rose-200 shadow-soft'
                 : 'bg-white border-mensor-border/80 shadow-soft'
             ]"
+            @click="tasksStore.activeEditingTask = task"
           >
             <div class="flex items-start justify-between gap-2">
-              <div class="flex items-start gap-2.5">
+              <div class="flex items-start gap-2.5 flex-1 min-w-0">
                 <button
+                  type="button"
                   class="w-5 h-5 rounded-full border-2 mt-0.5 flex items-center justify-center shrink-0 transition"
                   :class="[
                     task.status === 'completed'
                       ? 'bg-zinc-900 border-zinc-900 text-white'
                       : 'border-zinc-300 hover:border-zinc-600'
                   ]"
-                  @click="tasksStore.toggleTaskStatus(task.id)"
+                  @click.stop="tasksStore.toggleTaskStatus(task.id)"
                 >
                   <Check v-if="task.status === 'completed'" class="w-3 h-3 stroke-[3]" />
                 </button>
 
-                <div>
+                <div class="min-w-0 flex-1">
                   <h3
-                    class="text-xs font-bold text-zinc-900 leading-snug"
+                    class="text-xs font-bold text-zinc-900 leading-snug break-words"
                     :class="{ 'line-through text-zinc-400': task.status === 'completed' }"
                   >
                     {{ task.title }}
@@ -210,31 +212,42 @@ function getProjectTitle(projectId?: string | null): string {
                     <span
                       class="font-semibold"
                       :class="{
-                        'text-red-500': task.priority === 'high',
-                        'text-amber-500': task.priority === 'medium',
-                        'text-zinc-400': task.priority === 'low'
+                        'text-rose-500 font-semibold': task.priority === 'high',
+                        'text-amber-500 font-semibold': task.priority === 'medium',
+                        'text-emerald-600 font-semibold': task.priority === 'low'
                       }"
                     >
-                      {{ task.priority }}
+                      {{ appStore.t.schedule[task.priority] || task.priority }}
                     </span>
                   </div>
 
                   <p
                     v-if="task.description"
-                    class="text-[11px] text-zinc-600 mt-2 bg-white/70 p-2.5 rounded-xl border border-zinc-100"
+                    class="text-[11px] text-zinc-600 mt-2 bg-white/70 p-2.5 rounded-xl border border-zinc-100 leading-relaxed"
                   >
                     {{ task.description }}
                   </p>
                 </div>
               </div>
 
-              <button
-                class="text-zinc-300 hover:text-red-500 text-xs transition p-1"
-                @click="tasksStore.deleteTask(task.id)"
-                :title="appStore.t.common.delete"
-              >
-                &times;
-              </button>
+              <div class="flex items-center gap-1 shrink-0">
+                <button
+                  type="button"
+                  class="text-zinc-300 hover:text-zinc-600 p-1 rounded-md transition"
+                  @click.stop="tasksStore.activeEditingTask = task"
+                  :title="appStore.t.schedule.editTask"
+                >
+                  <Edit3 class="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  class="text-zinc-300 hover:text-red-500 text-sm font-bold leading-none p-1 rounded-md transition"
+                  @click.stop="tasksStore.deleteTask(task.id)"
+                  :title="appStore.t.common.delete"
+                >
+                  &times;
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -19,7 +19,8 @@ import {
   VolumeX,
   Mic,
   X,
-  Edit3
+  Edit3,
+  ChevronRight
 } from 'lucide-vue-next';
 
 const appStore = useAppStore();
@@ -435,19 +436,21 @@ function formatDate(ts: number): string {
           <div
             v-for="task in projectTasks"
             :key="task.id"
-            class="flex items-center justify-between p-4 rounded-2xl bg-white border border-mensor-border/80 shadow-soft"
+            class="flex items-center justify-between p-4 rounded-2xl bg-white border border-mensor-border/80 shadow-soft cursor-pointer hover:border-zinc-300 transition"
+            @click="tasksStore.activeEditingTask = task"
           >
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 flex-1 min-w-0">
               <button
-                class="w-5 h-5 rounded-full border-2 flex items-center justify-center transition"
+                type="button"
+                class="w-5 h-5 rounded-full border-2 flex items-center justify-center transition shrink-0"
                 :class="task.status === 'completed' ? 'bg-zinc-900 border-zinc-900 text-white' : 'border-zinc-300'"
-                @click="toggleTaskStatus(task.id)"
+                @click.stop="toggleTaskStatus(task.id)"
               >
                 <Check v-if="task.status === 'completed'" class="w-3 h-3 stroke-[3]" />
               </button>
-              <div>
+              <div class="min-w-0 flex-1">
                 <h5
-                  class="text-xs font-bold text-zinc-900"
+                  class="text-xs font-bold text-zinc-900 truncate"
                   :class="{ 'line-through text-zinc-400': task.status === 'completed' }"
                 >
                   {{ task.title }}
@@ -468,6 +471,15 @@ function formatDate(ts: number): string {
                 </div>
               </div>
             </div>
+
+            <button
+              type="button"
+              class="p-1 rounded-full text-zinc-300 hover:text-zinc-600 hover:bg-zinc-100 transition shrink-0"
+              @click.stop="tasksStore.activeEditingTask = task"
+              :title="appStore.t.schedule.editTask"
+            >
+              <ChevronRight class="w-4 h-4" />
+            </button>
           </div>
         </div>
 

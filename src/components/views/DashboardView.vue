@@ -432,11 +432,13 @@ function getProjectProgress(projectId: string): number {
         <div
           v-for="task in tasksStore.todayTasks"
           :key="task.id"
-          class="flex items-center justify-between p-3.5 rounded-2xl bg-white border border-mensor-border/80 shadow-soft transition hover:border-zinc-300"
+          class="flex items-center justify-between p-3.5 rounded-2xl bg-white border border-mensor-border/80 shadow-soft transition hover:border-zinc-300 cursor-pointer active:scale-[0.99]"
+          @click="tasksStore.activeEditingTask = task"
         >
           <div class="flex items-center gap-3">
             <button
-              class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all"
+              type="button"
+              class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all shrink-0"
               :class="[
                 task.status === 'completed'
                   ? 'bg-zinc-900 border-zinc-900 text-white'
@@ -459,9 +461,9 @@ function getProjectProgress(projectId: string): number {
                 <span v-if="task.timeSlot && task.priority">•</span>
                 <span
                   :class="{
-                    'text-red-500 font-semibold': task.priority === 'high',
+                    'text-rose-500 font-semibold': task.priority === 'high',
                     'text-amber-500 font-semibold': task.priority === 'medium',
-                    'text-zinc-400': task.priority === 'low'
+                    'text-emerald-600 font-semibold': task.priority === 'low'
                   }"
                 >
                   {{ appStore.t.schedule[task.priority] || task.priority }}
@@ -470,7 +472,14 @@ function getProjectProgress(projectId: string): number {
             </div>
           </div>
 
-          <ChevronRight class="w-4 h-4 text-zinc-300" />
+          <button
+            type="button"
+            class="p-1 rounded-full text-zinc-300 hover:text-zinc-600 hover:bg-zinc-100 transition"
+            @click.stop="tasksStore.activeEditingTask = task"
+            :title="appStore.t.schedule.editTask"
+          >
+            <ChevronRight class="w-4 h-4" />
+          </button>
         </div>
       </div>
 

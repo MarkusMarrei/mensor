@@ -23,6 +23,7 @@ import LockScreenModal from './components/modals/LockScreenModal.vue';
 import SettingsModal from './components/modals/SettingsModal.vue';
 import ProfileModal from './components/modals/ProfileModal.vue';
 import NewItemModal from './components/modals/NewItemModal.vue';
+import EditTaskModal from './components/modals/EditTaskModal.vue';
 
 const appStore = useAppStore();
 const notesStore = useNotesStore();
@@ -135,6 +136,7 @@ onMounted(async () => {
       <ProfileModal v-if="appStore.showProfileModal" />
       <SettingsModal v-if="appStore.showSettingsModal" />
       <NewItemModal v-if="appStore.showNewItemModal" />
+      <EditTaskModal v-if="tasksStore.activeEditingTask" />
     </template>
 
   </div>

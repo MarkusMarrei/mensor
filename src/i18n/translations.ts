@@ -44,6 +44,12 @@ export interface TranslationSchema {
     low: string;
     allDay: string;
     generalProject: string;
+    editTask: string;
+    deleteTaskConfirm: string;
+    saveTask: string;
+    taskDetails: string;
+    statusCompleted: string;
+    statusPending: string;
   };
   notes: {
     title: string;
@@ -322,11 +328,16 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "noTasksForDay": "На этот день ничего не запланировано",
       "high": "высокий",
       "medium": "средний",
-      "low": "низкий"
-    ,
+      "low": "низкий",
       "allDay": "Весь день",
       "generalProject": "Общее",
-      "createFirstTask": "+ Создать задачу на этот день"
+      "createFirstTask": "+ Создать задачу на этот день",
+      "editTask": "Редактирование задачи",
+      "deleteTaskConfirm": "Удалить эту задачу?",
+      "saveTask": "Сохранить изменения",
+      "taskDetails": "Параметры задачи",
+      "statusCompleted": "Завершена",
+      "statusPending": "В процессе"
     },
     "notes": {
       "title": "Записки",
@@ -339,8 +350,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "save": "Сохранить",
       "delete": "Удалить",
       "titlePlaceholder": "Заголовок записи...",
-      "contentPlaceholder": "Текст заметки или мысли..."
-    ,
+      "contentPlaceholder": "Текст заметки или мысли...",
       "emptyNotesDesc": "Мысли, идеи, планы...",
       "createFirstNote": "+ Создать первую мысль",
       "untitledNote": "Без названия",
@@ -357,8 +367,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "deleteConfirm": "Удалить этот проект со всеми привязанными записями?",
       "progress": "Прогресс",
       "inProgress": "В процессе",
-      "noDescription": "Без описания"
-    ,
+      "noDescription": "Без описания",
       "subtitle": "Изолированные пространства для работы",
       "notesWord": "записок",
       "tasksWord": "задач",
@@ -592,11 +601,16 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "noTasksForDay": "Nothing planned for this day",
       "high": "high",
       "medium": "medium",
-      "low": "low"
-    ,
+      "low": "low",
       "allDay": "All day",
       "generalProject": "General",
-      "createFirstTask": "+ Create task for this day"
+      "createFirstTask": "+ Create task for this day",
+      "editTask": "Edit Task",
+      "deleteTaskConfirm": "Delete this task?",
+      "saveTask": "Save Changes",
+      "taskDetails": "Task Details",
+      "statusCompleted": "Completed",
+      "statusPending": "In Progress"
     },
     "notes": {
       "title": "Notes",
@@ -609,8 +623,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "save": "Save",
       "delete": "Delete",
       "titlePlaceholder": "Note title...",
-      "contentPlaceholder": "Write your thoughts..."
-    ,
+      "contentPlaceholder": "Write your thoughts...",
       "emptyNotesDesc": "Thoughts, ideas, plans...",
       "createFirstNote": "+ Create first note",
       "untitledNote": "Untitled",
@@ -627,8 +640,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "deleteConfirm": "Delete this project along with all associated notes?",
       "progress": "Progress",
       "inProgress": "In progress",
-      "noDescription": "No description"
-    ,
+      "noDescription": "No description",
       "subtitle": "Dedicated workspaces for your goals",
       "notesWord": "notes",
       "tasksWord": "tasks",
@@ -862,11 +874,16 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "noTasksForDay": "Nada planeado para este día",
       "high": "alta",
       "medium": "media",
-      "low": "baja"
-    ,
+      "low": "baja",
       "allDay": "Todo el día",
       "generalProject": "General",
-      "createFirstTask": "+ Crear tarea para este día"
+      "createFirstTask": "+ Crear tarea para este día",
+      "editTask": "Editar tarea",
+      "deleteTaskConfirm": "¿Eliminar esta tarea?",
+      "saveTask": "Guardar cambios",
+      "taskDetails": "Detalles de la tarea",
+      "statusCompleted": "Completada",
+      "statusPending": "En progreso"
     },
     "notes": {
       "title": "Notas",
@@ -879,8 +896,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "save": "Guardar",
       "delete": "Eliminar",
       "titlePlaceholder": "Título de la nota...",
-      "contentPlaceholder": "Escribe tus pensamientos..."
-    ,
+      "contentPlaceholder": "Escribe tus pensamientos...",
       "emptyNotesDesc": "Pensamientos, ideas, planes...",
       "createFirstNote": "+ Crear primera nota",
       "untitledNote": "Sin título",
@@ -897,8 +913,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "deleteConfirm": "¿Eliminar este proyecto con todas sus notas?",
       "progress": "Progreso",
       "inProgress": "En progreso",
-      "noDescription": "Sin descripción"
-    ,
+      "noDescription": "Sin descripción",
       "subtitle": "Espacios dedicados para tus objetivos",
       "notesWord": "notas",
       "tasksWord": "tareas",
@@ -1132,11 +1147,16 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "noTasksForDay": "Für diesen Tag ist nichts geplant",
       "high": "hoch",
       "medium": "mittel",
-      "low": "niedrig"
-    ,
+      "low": "niedrig",
       "allDay": "Ganztägig",
       "generalProject": "Allgemein",
-      "createFirstTask": "+ Aufgabe für diesen Tag erstellen"
+      "createFirstTask": "+ Aufgabe für diesen Tag erstellen",
+      "editTask": "Aufgabe bearbeiten",
+      "deleteTaskConfirm": "Diese Aufgabe löschen?",
+      "saveTask": "Änderungen speichern",
+      "taskDetails": "Aufgabendetails",
+      "statusCompleted": "Abgeschlossen",
+      "statusPending": "In Bearbeitung"
     },
     "notes": {
       "title": "Notizen",
@@ -1149,8 +1169,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "save": "Speichern",
       "delete": "Löschen",
       "titlePlaceholder": "Titel der Notiz...",
-      "contentPlaceholder": "Gedanken notieren..."
-    ,
+      "contentPlaceholder": "Gedanken notieren...",
       "emptyNotesDesc": "Gedanken, Ideen, Pläne...",
       "createFirstNote": "+ Erste Notiz erstellen",
       "untitledNote": "Ohne Titel",
@@ -1167,8 +1186,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "deleteConfirm": "Projekt mit allen Notizen löschen?",
       "progress": "Fortschritt",
       "inProgress": "In Arbeit",
-      "noDescription": "Keine Beschreibung"
-    ,
+      "noDescription": "Keine Beschreibung",
       "subtitle": "Dedizierte Arbeitsbereiche für Ihre Ziele",
       "notesWord": "Notizen",
       "tasksWord": "Aufgaben",
@@ -1402,11 +1420,16 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "noTasksForDay": "Rien de prévu pour ce jour",
       "high": "haute",
       "medium": "moyenne",
-      "low": "basse"
-    ,
+      "low": "basse",
       "allDay": "Toute la journée",
       "generalProject": "Général",
-      "createFirstTask": "+ Créer une tâche pour ce jour"
+      "createFirstTask": "+ Créer une tâche pour ce jour",
+      "editTask": "Modifier la tâche",
+      "deleteTaskConfirm": "Supprimer cette tâche ?",
+      "saveTask": "Enregistrer les modifications",
+      "taskDetails": "Détails de la tâche",
+      "statusCompleted": "Terminée",
+      "statusPending": "En cours"
     },
     "notes": {
       "title": "Notes",
@@ -1419,8 +1442,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "save": "Enregistrer",
       "delete": "Supprimer",
       "titlePlaceholder": "Titre de la note...",
-      "contentPlaceholder": "Écrivez vos pensées..."
-    ,
+      "contentPlaceholder": "Écrivez vos pensées...",
       "emptyNotesDesc": "Pensées, idées, plans...",
       "createFirstNote": "+ Créer la première note",
       "untitledNote": "Sans titre",
@@ -1437,8 +1459,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "deleteConfirm": "Supprimer ce projet avec toutes ses notes ?",
       "progress": "Progression",
       "inProgress": "En cours",
-      "noDescription": "Sans description"
-    ,
+      "noDescription": "Sans description",
       "subtitle": "Espaces dédiés pour vos objectifs",
       "notesWord": "notes",
       "tasksWord": "tâches",
@@ -1672,11 +1693,16 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "noTasksForDay": "Nada planejado para este dia",
       "high": "alta",
       "medium": "média",
-      "low": "baixa"
-    ,
+      "low": "baixa",
       "allDay": "O dia todo",
       "generalProject": "Geral",
-      "createFirstTask": "+ Criar tarefa para este dia"
+      "createFirstTask": "+ Criar tarefa para este dia",
+      "editTask": "Editar tarefa",
+      "deleteTaskConfirm": "Excluir esta tarefa?",
+      "saveTask": "Salvar alterações",
+      "taskDetails": "Detalhes da tarefa",
+      "statusCompleted": "Concluída",
+      "statusPending": "Em andamento"
     },
     "notes": {
       "title": "Notas",
@@ -1689,8 +1715,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "save": "Salvar",
       "delete": "Excluir",
       "titlePlaceholder": "Título da nota...",
-      "contentPlaceholder": "Escreva seus pensamentos..."
-    ,
+      "contentPlaceholder": "Escreva seus pensamentos...",
       "emptyNotesDesc": "Pensamentos, ideias, planos...",
       "createFirstNote": "+ Criar primeira nota",
       "untitledNote": "Sem título",
@@ -1707,8 +1732,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "deleteConfirm": "Excluir este projeto e todas as notas?",
       "progress": "Progresso",
       "inProgress": "Em andamento",
-      "noDescription": "Sem descrição"
-    ,
+      "noDescription": "Sem descrição",
       "subtitle": "Espaços dedicados para seus objetivos",
       "notesWord": "notas",
       "tasksWord": "tarefas",
@@ -1942,11 +1966,16 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "noTasksForDay": "Nulla pianificato per questo giorno",
       "high": "alta",
       "medium": "media",
-      "low": "bassa"
-    ,
+      "low": "bassa",
       "allDay": "Tutto il giorno",
       "generalProject": "Generale",
-      "createFirstTask": "+ Crea attività per questo giorno"
+      "createFirstTask": "+ Crea attività per questo giorno",
+      "editTask": "Modifica attività",
+      "deleteTaskConfirm": "Eliminare questa attività?",
+      "saveTask": "Salva modifiche",
+      "taskDetails": "Dettagli attività",
+      "statusCompleted": "Completata",
+      "statusPending": "In corso"
     },
     "notes": {
       "title": "Note",
@@ -1959,8 +1988,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "save": "Salva",
       "delete": "Elimina",
       "titlePlaceholder": "Titolo della nota...",
-      "contentPlaceholder": "Scrivi i tuoi pensieri..."
-    ,
+      "contentPlaceholder": "Scrivi i tuoi pensieri...",
       "emptyNotesDesc": "Pensieri, idee, piani...",
       "createFirstNote": "+ Crea prima nota",
       "untitledNote": "Senza titolo",
@@ -1977,8 +2005,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "deleteConfirm": "Eliminare questo progetto e tutte le note?",
       "progress": "Progresso",
       "inProgress": "In corso",
-      "noDescription": "Nessuna descrizione"
-    ,
+      "noDescription": "Nessuna descrizione",
       "subtitle": "Spazi dedicati per i tuoi obiettivi",
       "notesWord": "note",
       "tasksWord": "attività",
@@ -2212,11 +2239,16 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "noTasksForDay": "この日の予定はありません",
       "high": "高",
       "medium": "中",
-      "low": "低"
-    ,
+      "low": "低",
       "allDay": "終日",
       "generalProject": "一般",
-      "createFirstTask": "+ この日のタスクを作成"
+      "createFirstTask": "+ この日のタスクを作成",
+      "editTask": "タスクの編集",
+      "deleteTaskConfirm": "このタスクを削除しますか？",
+      "saveTask": "変更を保存",
+      "taskDetails": "タスクの詳細",
+      "statusCompleted": "完了",
+      "statusPending": "進行中"
     },
     "notes": {
       "title": "メモ",
@@ -2229,8 +2261,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "save": "保存",
       "delete": "削除",
       "titlePlaceholder": "メモのタイトル...",
-      "contentPlaceholder": "考えを書き留めましょう..."
-    ,
+      "contentPlaceholder": "考えを書き留めましょう...",
       "emptyNotesDesc": "思考、アイデア、計画...",
       "createFirstNote": "+ 最初のメモを作成",
       "untitledNote": "無題",
@@ -2247,8 +2278,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "deleteConfirm": "このプロジェクトと関連メモをすべて削除しますか？",
       "progress": "進捗",
       "inProgress": "進行中",
-      "noDescription": "説明なし"
-    ,
+      "noDescription": "説明なし",
       "subtitle": "目標のための専用ワークスペース",
       "notesWord": "メモ",
       "tasksWord": "タスク",
@@ -2482,11 +2512,16 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "noTasksForDay": "이 날짜에 계획된 일정이 없습니다",
       "high": "높음",
       "medium": "중간",
-      "low": "낮음"
-    ,
+      "low": "낮음",
       "allDay": "종일",
       "generalProject": "일반",
-      "createFirstTask": "+ 이 날의 할 일 만들기"
+      "createFirstTask": "+ 이 날의 할 일 만들기",
+      "editTask": "할 일 편집",
+      "deleteTaskConfirm": "이 할 일을 삭제하시겠습니까?",
+      "saveTask": "변경 사항 저장",
+      "taskDetails": "할 일 상세",
+      "statusCompleted": "완료됨",
+      "statusPending": "진행 중"
     },
     "notes": {
       "title": "노트",
@@ -2499,8 +2534,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "save": "저장",
       "delete": "삭제",
       "titlePlaceholder": "노트 제목...",
-      "contentPlaceholder": "생각을 적어보세요..."
-    ,
+      "contentPlaceholder": "생각을 적어보세요...",
       "emptyNotesDesc": "생각, 아이디어, 계획...",
       "createFirstNote": "+ 첫 번째 메모 만들기",
       "untitledNote": "제목 없음",
@@ -2517,8 +2551,7 @@ export const translations: Record<LanguageCode, TranslationSchema> = {
       "deleteConfirm": "이 프로젝트와 모든 노트를 삭제하시겠습니까?",
       "progress": "진행률",
       "inProgress": "진행 중",
-      "noDescription": "설명 없음"
-    ,
+      "noDescription": "설명 없음",
       "subtitle": "목표를 위한 전용 작업 공간",
       "notesWord": "메모",
       "tasksWord": "할 일",
