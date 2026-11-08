@@ -9,7 +9,7 @@
 ### Privacy-First Offline Hub for Notes, Schedule & Project Management
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![App Version](https://img.shields.io/badge/Version-5.0.0-rose.svg)](package.json)
+[![App Version](https://img.shields.io/badge/Version-5.0.0-rose.svg)](https://github.com/MarkusMarrei/mensor/releases/tag/v5.0.0)
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20Web-3DDC84.svg?logo=android&logoColor=white)](https://developer.android.com/)
 [![Vue 3](https://img.shields.io/badge/Vue-3.5-42b883.svg?logo=vue.js&logoColor=white)](https://vuejs.org/)
 [![Capacitor](https://img.shields.io/badge/Capacitor-7.0-119eff.svg?logo=capacitor&logoColor=white)](https://capacitorjs.com/)
@@ -18,12 +18,18 @@
 [![Offline First](https://img.shields.io/badge/Storage-100%25%20Offline%20(Dexie)-success.svg)](#security--architecture)
 
 <p align="center">
+  <a href="https://github.com/MarkusMarrei/mensor/releases/download/v5.0.0/Mensor-v5.0.apk">
+    <img src="https://img.shields.io/badge/Download_APK-v5.0.0_(Instant_Install)-E11D48?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" height="38" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="#-download-apk">Direct Download</a> •
   <a href="#-key-highlights">Highlights</a> •
   <a href="#-visual-showcase">Showcase</a> •
   <a href="#-core-features">Features</a> •
   <a href="#-architecture--tech-stack">Architecture</a> •
   <a href="#-quick-start">Quick Start</a> •
-  <a href="#-building-android-apk">Build APK</a> •
   <a href="#-authorship--license">License</a>
 </p>
 
@@ -34,6 +40,25 @@
 <p align="center">
   <img src="docs/images/showcase-hero.png" alt="Mensor Hero Showcase" width="100%" style="border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.12);" />
 </p>
+
+## 📥 Download APK
+
+You can install and use Mensor right away without cloning or compiling the repository:
+
+| Asset | Platform | Version | Size | Download |
+|---|---|---|---|---|
+| **Mensor-v5.0.apk** | Android 9.0+ (ARM64 / x86_64) | `v5.0.0` (Latest) | ~5.03 MB | [⬇️ **Download APK**](https://github.com/MarkusMarrei/mensor/releases/download/v5.0.0/Mensor-v5.0.apk) |
+
+> [!TIP]
+> **How to install on Android:**  
+> 1. Tap **[Download APK](https://github.com/MarkusMarrei/mensor/releases/download/v5.0.0/Mensor-v5.0.apk)** directly on your device.  
+> 2. Open the downloaded file from your notifications or `Downloads` folder.  
+> 3. If prompted, allow *“Install unknown apps”* in your system settings.  
+> 4. All set! Your notes, schedule, and projects remain 100% offline and encrypted.
+
+All official release artifacts are hosted under [GitHub Releases](https://github.com/MarkusMarrei/mensor/releases).
+
+---
 
 ## 🌟 Key Highlights
 
@@ -257,7 +282,7 @@ android/app/build/outputs/apk/debug/app-debug.apk
 
 **Creator & Lead Developer:**
 - **Markus Marrei** (*Маркус Маррей*)
-- GitHub: [@MarkusMarrei](https://github.com/MarkusMarrei)
+- GitHub: [@MarkusMarrei](https://github.com/MarkusMarrei/mensor)
 - Repository: [https://github.com/MarkusMarrei/mensor](https://github.com/MarkusMarrei/mensor)
 
 Distributed under the **Apache License 2.0**.
